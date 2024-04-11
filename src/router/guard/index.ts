@@ -15,9 +15,14 @@ import { createParamMenuGuard } from './paramMenuGuard';
 
 // Don't change the order of creation
 export function setupRouterGuard(router: Router) {
+  // 改变页面的加载状态: 修改to.meta.loaded, 添加loadedPageMap
   createPageGuard(router);
+  // 页面 loading 状态: openPageLoading
   createPageLoadingGuard(router);
+
+  // 切换路由时,中断正在进行的http请求
   createHttpGuard(router);
+  //
   createScrollGuard(router);
   createMessageGuard(router);
   createProgressGuard(router);
@@ -48,17 +53,21 @@ function createPageGuard(router: Router) {
 
 // Used to handle page loading status
 function createPageLoadingGuard(router: Router) {
+  // 在全局路由守卫中使用 pinia store
   const userStore = useUserStoreWithOut();
   const appStore = useAppStoreWithOut();
   const { getOpenPageLoading } = useTransitionSetting();
+
   router.beforeEach(async (to) => {
+    // 没有token ,直接跳过守卫
     if (!userStore.getToken) {
       return true;
     }
+    // 页面加载过,也直接跳过守卫( 这样就只针对初次加载的页面有效)
     if (to.meta.loaded) {
       return true;
     }
-
+    // 对 computed 进行 unref()
     if (unref(getOpenPageLoading)) {
       appStore.setPageLoadingAction(true);
       return true;
@@ -84,8 +93,11 @@ function createPageLoadingGuard(router: Router) {
  */
 function createHttpGuard(router: Router) {
   const { removeAllHttpPending } = projectSetting;
+
   let axiosCanceler: Nullable<AxiosCanceler>;
+  // 如果配置了 取消 http 请求 ,就实例化 AxiosCanceler
   if (removeAllHttpPending) {
+    // 虽然是不同的 AxiosCanceler 实例,但是 removeAllPending() 访问的全局的属性
     axiosCanceler = new AxiosCanceler();
   }
   router.beforeEach(async () => {

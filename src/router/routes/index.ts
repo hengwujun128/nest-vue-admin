@@ -17,6 +17,7 @@ Object.keys(modules).forEach((key) => {
   routeModuleList.push(...modList);
 });
 
+// 在路由守卫中添加的动态路由
 export const asyncRoutes = [PAGE_NOT_FOUND_ROUTE, ...routeModuleList];
 
 // 根路由
@@ -43,7 +44,7 @@ export const LoginRoute: AppRouteRecordRaw = {
 export const basicRoutes = [
   LoginRoute,
   RootRoute,
-  ...mainOutRoutes,
+  ...mainOutRoutes, // 框架以外的页面
   REDIRECT_ROUTE,
   PAGE_NOT_FOUND_ROUTE,
 ];
