@@ -1,11 +1,12 @@
-import { presetTypography, presetUno } from 'unocss';
-import UnoCSS from 'unocss/vite';
-import { type UserConfig } from 'vite';
+import { presetTypography, presetUno } from 'unocss'
+import UnoCSS from 'unocss/vite'
+import { type UserConfig } from 'vite'
 
 const commonConfig: (mode: string) => UserConfig = (mode) => ({
   server: {
     host: true,
   },
+  // 生产环境会 drop 掉 console 和 debugger
   esbuild: {
     drop: mode === 'production' ? ['console', 'debugger'] : [],
   },
@@ -22,6 +23,6 @@ const commonConfig: (mode: string) => UserConfig = (mode) => ({
       presets: [presetUno(), presetTypography()],
     }),
   ],
-});
+})
 
-export { commonConfig };
+export { commonConfig }
