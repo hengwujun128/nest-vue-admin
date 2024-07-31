@@ -112,15 +112,20 @@ export const useUserStore = defineStore({
       if (sessionTimeout) {
         this.setSessionTimeout(false)
       } else {
+        /* -----------------------------获取用户权限 ,生成用户菜单------------------------------- */
         const permissionStore = usePermissionStore()
+        // 是否是动态添加路由,初始化的时候是动态添加路由,生成左侧菜单
         if (!permissionStore.isDynamicAddedRoute) {
           const routes = await permissionStore.buildRoutesAction()
           routes.forEach((route) => {
             router.addRoute(route as unknown as RouteRecordRaw)
           })
+          // 添加 404 路由
           router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw)
+          // 设置 isDynamicAddedRoute 为 true
           permissionStore.setDynamicAddedRoute(true)
         }
+        /* ------------------------------ 获取用户权限,生成用户菜单 ----------------------------- */
         goHome && (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME))
       }
       return userInfo
