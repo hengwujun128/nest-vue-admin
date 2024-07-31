@@ -28,10 +28,10 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicTable, useTable, BasicColumn, TableImg } from '/@/components/Table';
-  import { Tag, Avatar } from 'ant-design-vue';
-  import { demoListApi } from '/@/api/demo/table';
+  import { defineComponent } from 'vue'
+  import { BasicTable, useTable, BasicColumn, TableImg } from '/@/components/Table'
+  import { Tag, Avatar } from 'ant-design-vue'
+  import { demoListApi } from '/@/api/demo/table'
 
   const columns: BasicColumn[] = [
     {
@@ -88,7 +88,7 @@
       title: '结束时间',
       dataIndex: 'endTime',
     },
-  ];
+  ]
   export default defineComponent({
     components: { BasicTable, TableImg, Tag, Avatar },
     setup() {
@@ -99,11 +99,11 @@
         columns: columns,
         bordered: true,
         showTableSetting: true,
-      });
+      })
 
       return {
         registerTable,
-      };
+      }
     },
-  });
+  })
 </script>

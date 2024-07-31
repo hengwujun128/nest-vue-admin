@@ -76,8 +76,8 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { useFormDesignState } from '../../../hooks/useFormDesignState';
+  import { defineComponent } from 'vue'
+  import { useFormDesignState } from '../../../hooks/useFormDesignState'
   import {
     InputNumber,
     Slider,
@@ -87,7 +87,7 @@
     Form,
     FormItem,
     Radio,
-  } from 'ant-design-vue';
+  } from 'ant-design-vue'
 
   export default defineComponent({
     name: 'FormProps',
@@ -102,20 +102,20 @@
       Col,
     },
     setup() {
-      const { formConfig } = useFormDesignState();
+      const { formConfig } = useFormDesignState()
 
       formConfig.value = formConfig.value || {
         labelCol: { span: 24 },
         wrapperCol: { span: 24 },
-      };
+      }
 
       const lableLayoutChange = (e: RadioChangeEvent) => {
         if (e.target.value === 'Grid') {
-          formConfig.value.layout = 'horizontal';
+          formConfig.value.layout = 'horizontal'
         }
-      };
+      }
 
-      return { formConfig, lableLayoutChange };
+      return { formConfig, lableLayoutChange }
     },
-  });
+  })
 </script>

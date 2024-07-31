@@ -1,10 +1,10 @@
 <script lang="tsx">
-  import type { PropType } from 'vue';
-  import type { BasicColumn } from '../types/table';
-  import { defineComponent, computed } from 'vue';
-  import BasicHelp from '/@/components/Basic/src/BasicHelp.vue';
-  import EditTableHeaderCell from './EditTableHeaderIcon.vue';
-  import { useDesign } from '/@/hooks/web/useDesign';
+  import type { PropType } from 'vue'
+  import type { BasicColumn } from '../types/table'
+  import { defineComponent, computed } from 'vue'
+  import BasicHelp from '/@/components/Basic/src/BasicHelp.vue'
+  import EditTableHeaderCell from './EditTableHeaderIcon.vue'
+  import { useDesign } from '/@/hooks/web/useDesign'
 
   export default defineComponent({
     name: 'TableHeaderCell',
@@ -19,17 +19,17 @@
       },
     },
     setup(props) {
-      const { prefixCls } = useDesign('basic-table-header-cell');
+      const { prefixCls } = useDesign('basic-table-header-cell')
 
-      const getIsEdit = computed(() => !!props.column?.edit);
+      const getIsEdit = computed(() => !!props.column?.edit)
       const getTitle = computed(() => {
-        const column = props.column;
+        const column = props.column
         if (typeof column.customHeaderRender === 'function') {
-          return column.customHeaderRender(props.column);
+          return column.customHeaderRender(props.column)
         }
-        return props.column?.customTitle || props.column?.title;
-      });
-      const getHelpMessage = computed(() => props.column?.helpMessage);
+        return props.column?.customTitle || props.column?.title
+      })
+      const getHelpMessage = computed(() => props.column?.helpMessage)
 
       return () => {
         return (
@@ -43,10 +43,10 @@
               <BasicHelp text={getHelpMessage.value} class={`${prefixCls}__help`} />
             )}
           </div>
-        );
-      };
+        )
+      }
     },
-  });
+  })
 </script>
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-table-header-cell';

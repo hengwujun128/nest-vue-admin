@@ -20,17 +20,17 @@
   </BasicTable>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { BasicTable, useTable } from '/@/components/Table';
-  import { getBasicColumns, getFormConfig } from './tableData';
-  import { Alert } from 'ant-design-vue';
+  import { defineComponent, ref } from 'vue'
+  import { BasicTable, useTable } from '/@/components/Table'
+  import { getBasicColumns, getFormConfig } from './tableData'
+  import { Alert } from 'ant-design-vue'
 
-  import { demoListApi } from '/@/api/demo/table';
+  import { demoListApi } from '/@/api/demo/table'
 
   export default defineComponent({
     components: { BasicTable, AAlert: Alert },
     setup() {
-      const checkedKeys = ref<Array<string | number>>([]);
+      const checkedKeys = ref<Array<string | number>>([])
       const [registerTable, { getForm }] = useTable({
         title: '开启搜索区域',
         api: demoListApi,
@@ -47,27 +47,27 @@
           onSelect: onSelect,
           onSelectAll: onSelectAll,
         },
-      });
+      })
 
       function getFormValues() {
-        console.log(getForm().getFieldsValue());
+        console.log(getForm().getFieldsValue())
       }
 
       function onSelect(record, selected) {
         if (selected) {
-          checkedKeys.value = [...checkedKeys.value, record.id];
+          checkedKeys.value = [...checkedKeys.value, record.id]
         } else {
-          checkedKeys.value = checkedKeys.value.filter((id) => id !== record.id);
+          checkedKeys.value = checkedKeys.value.filter((id) => id !== record.id)
         }
       }
       function onSelectAll(selected, selectedRows, changeRows) {
-        const changeIds = changeRows.map((item) => item.id);
+        const changeIds = changeRows.map((item) => item.id)
         if (selected) {
-          checkedKeys.value = [...checkedKeys.value, ...changeIds];
+          checkedKeys.value = [...checkedKeys.value, ...changeIds]
         } else {
           checkedKeys.value = checkedKeys.value.filter((id) => {
-            return !changeIds.includes(id);
-          });
+            return !changeIds.includes(id)
+          })
         }
       }
 
@@ -77,7 +77,7 @@
         checkedKeys,
         onSelect,
         onSelectAll,
-      };
+      }
     },
-  });
+  })
 </script>

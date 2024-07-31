@@ -18,9 +18,9 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent } from 'vue'
 
-  import { basicProps } from '../props';
+  import { basicProps } from '../props'
 
   export default defineComponent({
     name: 'BasicModalFooter',
@@ -28,14 +28,14 @@
     emits: ['ok', 'cancel'],
     setup(_, { emit }) {
       function handleOk(e: Event) {
-        emit('ok', e);
+        emit('ok', e)
       }
 
       function handleCancel(e: Event) {
-        emit('cancel', e);
+        emit('cancel', e)
       }
 
-      return { handleOk, handleCancel };
+      return { handleOk, handleCancel }
     },
-  });
+  })
 </script>

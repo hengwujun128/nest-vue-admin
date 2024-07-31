@@ -12,22 +12,22 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { useWatermark } from '/@/hooks/web/useWatermark';
-  import { PageWrapper } from '/@/components/Page';
-  import { type Nullable } from '@vben/types';
+  import { defineComponent, ref } from 'vue'
+  import { CollapseContainer } from '/@/components/Container/index'
+  import { useWatermark } from '/@/hooks/web/useWatermark'
+  import { PageWrapper } from '/@/components/Page'
+  import { type Nullable } from '@vben/types'
 
   export default defineComponent({
     components: { CollapseContainer, PageWrapper },
     setup() {
-      const areaRef = ref<Nullable<HTMLElement>>(null);
-      const { setWatermark, clear } = useWatermark();
+      const areaRef = ref<Nullable<HTMLElement>>(null)
+      const { setWatermark, clear } = useWatermark()
       return {
         setWatermark,
         clear,
         areaRef,
-      };
+      }
     },
-  });
+  })
 </script>

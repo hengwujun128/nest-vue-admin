@@ -10,13 +10,13 @@
 </template>
 
 <script lang="ts">
-  import { type Recordable, type AnyFunction } from '@vben/types';
-  import { type PropType, computed, defineComponent, watch, ref, onMounted, unref } from 'vue';
-  import { Tree } from 'ant-design-vue';
-  import { isArray, isFunction } from '/@/utils/is';
-  import { get } from 'lodash-es';
-  import { propTypes } from '/@/utils/propTypes';
-  import { LoadingOutlined } from '@ant-design/icons-vue';
+  import { type Recordable, type AnyFunction } from '@vben/types'
+  import { type PropType, computed, defineComponent, watch, ref, onMounted, unref } from 'vue'
+  import { Tree } from 'ant-design-vue'
+  import { isArray, isFunction } from '/@/utils/is'
+  import { get } from 'lodash-es'
+  import { propTypes } from '/@/utils/propTypes'
+  import { LoadingOutlined } from '@ant-design/icons-vue'
 
   export default defineComponent({
     name: 'ApiTree',
@@ -30,63 +30,63 @@
     },
     emits: ['options-change', 'change'],
     setup(props, { attrs, emit }) {
-      const treeData = ref<Recordable<any>[]>([]);
-      const isFirstLoaded = ref<Boolean>(false);
-      const loading = ref(false);
+      const treeData = ref<Recordable<any>[]>([])
+      const isFirstLoaded = ref<Boolean>(false)
+      const loading = ref(false)
       const getAttrs = computed(() => {
         return {
           ...(props.api ? { treeData: unref(treeData) } : {}),
           ...attrs,
-        };
-      });
+        }
+      })
 
       function handleChange(...args) {
-        emit('change', ...args);
+        emit('change', ...args)
       }
 
       watch(
         () => props.params,
         () => {
-          !unref(isFirstLoaded) && fetch();
+          !unref(isFirstLoaded) && fetch()
         },
         { deep: true },
-      );
+      )
 
       watch(
         () => props.immediate,
         (v) => {
-          v && !isFirstLoaded.value && fetch();
+          v && !isFirstLoaded.value && fetch()
         },
-      );
+      )
 
       onMounted(() => {
-        props.immediate && fetch();
-      });
+        props.immediate && fetch()
+      })
 
       async function fetch() {
-        const { api, afterFetch } = props;
-        if (!api || !isFunction(api)) return;
-        loading.value = true;
-        treeData.value = [];
-        let result;
+        const { api, afterFetch } = props
+        if (!api || !isFunction(api)) return
+        loading.value = true
+        treeData.value = []
+        let result
         try {
-          result = await api(props.params);
+          result = await api(props.params)
         } catch (e) {
-          console.error(e);
+          console.error(e)
         }
         if (afterFetch && isFunction(afterFetch)) {
-          result = afterFetch(result);
+          result = afterFetch(result)
         }
-        loading.value = false;
-        if (!result) return;
+        loading.value = false
+        if (!result) return
         if (!isArray(result)) {
-          result = get(result, props.resultField);
+          result = get(result, props.resultField)
         }
-        treeData.value = (result as Recordable<any>[]) || [];
-        isFirstLoaded.value = true;
-        emit('options-change', treeData.value);
+        treeData.value = (result as Recordable<any>[]) || []
+        isFirstLoaded.value = true
+        emit('options-change', treeData.value)
       }
-      return { getAttrs, loading, handleChange };
+      return { getAttrs, loading, handleChange }
     },
-  });
+  })
 </script>

@@ -29,27 +29,27 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent, reactive, toRefs, ref } from 'vue';
-  import { Loading, useLoading } from '/@/components/Loading';
-  import { PageWrapper } from '/@/components/Page';
-  import { Alert } from 'ant-design-vue';
+  import { defineComponent, reactive, toRefs, ref } from 'vue'
+  import { Loading, useLoading } from '/@/components/Loading'
+  import { PageWrapper } from '/@/components/Page'
+  import { Alert } from 'ant-design-vue'
 
   export default defineComponent({
     components: { Loading, PageWrapper, [Alert.name]: Alert },
     setup() {
-      const wrapEl = ref<ElRef>(null);
+      const wrapEl = ref<ElRef>(null)
 
-      const loadingRef = ref(false);
+      const loadingRef = ref(false)
       const compState = reactive({
         absolute: false,
         loading: false,
         theme: 'dark',
         background: 'rgba(111,111,111,.7)',
         tip: '加载中...',
-      });
+      })
       const [openFullLoading, closeFullLoading] = useLoading({
         tip: '加载中...',
-      });
+      })
 
       const [openWrapLoading, closeWrapLoading] = useLoading({
         target: wrapEl,
@@ -57,45 +57,45 @@
           tip: '加载中...',
           absolute: true,
         },
-      });
+      })
 
       function openLoading(absolute: boolean) {
-        compState.absolute = absolute;
-        compState.loading = true;
+        compState.absolute = absolute
+        compState.loading = true
         setTimeout(() => {
-          compState.loading = false;
-        }, 2000);
+          compState.loading = false
+        }, 2000)
       }
 
       function openCompFullLoading() {
-        openLoading(false);
+        openLoading(false)
       }
 
       function openCompAbsolute() {
-        openLoading(true);
+        openLoading(true)
       }
 
       function openFnFullLoading() {
-        openFullLoading();
+        openFullLoading()
 
         setTimeout(() => {
-          closeFullLoading();
-        }, 2000);
+          closeFullLoading()
+        }, 2000)
       }
 
       function openFnWrapLoading() {
-        openWrapLoading();
+        openWrapLoading()
 
         setTimeout(() => {
-          closeWrapLoading();
-        }, 2000);
+          closeWrapLoading()
+        }, 2000)
       }
 
       function openDirectiveLoading() {
-        loadingRef.value = true;
+        loadingRef.value = true
         setTimeout(() => {
-          loadingRef.value = false;
-        }, 2000);
+          loadingRef.value = false
+        }, 2000)
       }
 
       return {
@@ -107,7 +107,7 @@
         loadingRef,
         openDirectiveLoading,
         ...toRefs(compState),
-      };
+      }
     },
-  });
+  })
 </script>

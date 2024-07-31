@@ -13,12 +13,12 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { PageWrapper } from '/@/components/Page';
-  import { isAccountExist } from '/@/api/demo/system';
+  import { defineComponent } from 'vue'
+  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index'
+  import { CollapseContainer } from '/@/components/Container'
+  import { useMessage } from '/@/hooks/web/useMessage'
+  import { PageWrapper } from '/@/components/Page'
+  import { isAccountExist } from '/@/api/demo/system'
 
   const schemas: FormSchema[] = [
     {
@@ -99,7 +99,7 @@
           },
         ],
         onChange: (value) => {
-          console.log(value, '123');
+          console.log(value, '123')
         },
       },
       rules: [
@@ -124,13 +124,13 @@
           validator: async (rule, value) => {
             if (!value) {
               /* eslint-disable-next-line */
-              return Promise.reject('值不能为空');
+              return Promise.reject('值不能为空')
             }
             if (value === '1') {
               /* eslint-disable-next-line */
-              return Promise.reject('值不能为1');
+              return Promise.reject('值不能为1')
             }
-            return Promise.resolve();
+            return Promise.resolve()
           },
           trigger: 'change',
         },
@@ -197,19 +197,19 @@
               isAccountExist(value)
                 .then(() => resolve())
                 .catch((err) => {
-                  reject(err.message || '验证失败');
-                });
-            });
+                  reject(err.message || '验证失败')
+                })
+            })
           },
         },
       ],
     },
-  ];
+  ]
 
   export default defineComponent({
     components: { BasicForm, CollapseContainer, PageWrapper },
     setup() {
-      const { createMessage } = useMessage();
+      const { createMessage } = useMessage()
       const [
         register,
         { validateFields, clearValidate, getFieldsValue, resetFields, setFieldsValue },
@@ -219,21 +219,21 @@
         actionColOptions: {
           span: 24,
         },
-      });
+      })
       async function validateForm() {
         try {
-          const res = await validateFields();
-          console.log('passing', res);
+          const res = await validateFields()
+          console.log('passing', res)
         } catch (error) {
-          console.log('not passing', error);
+          console.log('not passing', error)
         }
       }
       async function resetValidate() {
-        clearValidate();
+        clearValidate()
       }
       function getFormValues() {
-        const values = getFieldsValue();
-        createMessage.success('values:' + JSON.stringify(values));
+        const values = getFieldsValue()
+        createMessage.success('values:' + JSON.stringify(values))
       }
       function setFormValues() {
         setFieldsValue({
@@ -243,20 +243,20 @@
           field7: '1',
           field33: '2020-12-12',
           field3: '2020-12-12',
-        });
+        })
       }
       return {
         register,
         schemas,
         handleSubmit: (values: any) => {
-          createMessage.success('click search,values:' + JSON.stringify(values));
+          createMessage.success('click search,values:' + JSON.stringify(values))
         },
         getFormValues,
         setFormValues,
         validateForm,
         resetValidate,
         resetFields,
-      };
+      }
     },
-  });
+  })
 </script>

@@ -51,11 +51,11 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { Progress, Row, Col, List } from 'ant-design-vue';
-  import { defineComponent } from 'vue';
-  import Icon from '@/components/Icon/Icon.vue';
-  import { cardList } from './data';
-  import { PageWrapper } from '/@/components/Page';
+  import { Progress, Row, Col, List } from 'ant-design-vue'
+  import { defineComponent } from 'vue'
+  import Icon from '@/components/Icon/Icon.vue'
+  import { cardList } from './data'
+  import { PageWrapper } from '/@/components/Page'
 
   export default defineComponent({
     components: {
@@ -76,9 +76,9 @@
           show: true,
           pageSize: 3,
         },
-      };
+      }
     },
-  });
+  })
 </script>
 <style lang="less" scoped>
   .list-basic {

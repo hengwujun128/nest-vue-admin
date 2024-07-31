@@ -10,12 +10,12 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicTable } from '/@/components/Table';
-  import { aoaToSheetXlsx } from '/@/components/Excel';
-  import { arrHeader, arrData, columns, data } from './data';
-  import { PageWrapper } from '/@/components/Page';
-  import { aoaToMultipleSheetXlsx } from '/@/components/Excel/src/Export2Excel';
+  import { defineComponent } from 'vue'
+  import { BasicTable } from '/@/components/Table'
+  import { aoaToSheetXlsx } from '/@/components/Excel'
+  import { arrHeader, arrData, columns, data } from './data'
+  import { PageWrapper } from '/@/components/Page'
+  import { aoaToMultipleSheetXlsx } from '/@/components/Excel/src/Export2Excel'
 
   export default defineComponent({
     components: { BasicTable, PageWrapper },
@@ -26,7 +26,7 @@
           data: arrData,
           header: arrHeader,
           filename: '二维数组方式导出excel.xlsx',
-        });
+        })
       }
       function aoaToMultipleSheet() {
         // 保证data顺序与header一致
@@ -44,7 +44,7 @@
             },
           ],
           filename: '二维数组方式导出excel-多Sheet示例.xlsx',
-        });
+        })
       }
 
       return {
@@ -52,7 +52,7 @@
         aoaToMultipleSheet,
         columns,
         data,
-      };
+      }
     },
-  });
+  })
 </script>

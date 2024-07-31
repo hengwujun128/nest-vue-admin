@@ -1,6 +1,6 @@
-import { BasicColumn, FormSchema } from '/@/components/Table';
-import { h } from 'vue';
-import { Tag } from 'ant-design-vue';
+import { BasicColumn, FormSchema } from '/@/components/Table'
+import { h } from 'vue'
+import { Tag } from 'ant-design-vue'
 
 export const columns: BasicColumn[] = [
   {
@@ -19,11 +19,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'status',
     width: 80,
     customRender: ({ record }) => {
-      const status = record.status;
-      const enable = ~~status === 0;
-      const color = enable ? 'green' : 'red';
-      const text = enable ? '启用' : '停用';
-      return h(Tag, { color: color }, () => text);
+      const status = record.status
+      const enable = ~~status === 0
+      const color = enable ? 'green' : 'red'
+      const text = enable ? '启用' : '停用'
+      return h(Tag, { color: color }, () => text)
     },
   },
   {
@@ -35,7 +35,7 @@ export const columns: BasicColumn[] = [
     title: '备注',
     dataIndex: 'remark',
   },
-];
+]
 
 export const searchFormSchema: FormSchema[] = [
   {
@@ -56,7 +56,7 @@ export const searchFormSchema: FormSchema[] = [
     },
     colProps: { span: 8 },
   },
-];
+]
 
 export const formSchema: FormSchema[] = [
   {
@@ -104,4 +104,4 @@ export const formSchema: FormSchema[] = [
     field: 'remark',
     component: 'InputTextArea',
   },
-];
+]

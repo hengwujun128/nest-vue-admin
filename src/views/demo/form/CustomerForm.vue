@@ -19,25 +19,25 @@
   </PageWrapper>
 </template>
 <script lang="tsx">
-  import { defineComponent, h } from 'vue';
-  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { Input, FormItem, Select } from 'ant-design-vue';
-  import { PageWrapper } from '/@/components/Page';
+  import { defineComponent, h } from 'vue'
+  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index'
+  import { CollapseContainer } from '/@/components/Container/index'
+  import { useMessage } from '/@/hooks/web/useMessage'
+  import { Input, FormItem, Select } from 'ant-design-vue'
+  import { PageWrapper } from '/@/components/Page'
 
   const custom_typeKey2typeValueRules = (model) => {
     return [
       {
         required: true,
         validator: (rule, value, callback) => {
-          if (!model.typeKey) return callback('请选择类型');
-          if (!model.typeValue) return callback('请输入数据');
-          callback();
+          if (!model.typeKey) return callback('请选择类型')
+          if (!model.typeValue) return callback('请输入数据')
+          callback()
         },
       },
-    ];
-  };
+    ]
+  }
   const schemas: FormSchema[] = [
     {
       field: 'field1',
@@ -47,7 +47,7 @@
         span: 8,
       },
       dynamicDisabled: ({ values }) => {
-        return !!values.field_disabled;
+        return !!values.field_disabled
       },
       rules: [{ required: true }],
       render: ({ model, field }, { disabled }) => {
@@ -55,10 +55,10 @@
           placeholder: '请输入',
           value: model[field],
           onChange: (e) => {
-            model[field] = e.target.value;
+            model[field] = e.target.value
           },
           disabled,
-        });
+        })
       },
     },
     {
@@ -69,13 +69,13 @@
         span: 8,
       },
       dynamicDisabled: ({ values }) => {
-        return !!values.field_disabled;
+        return !!values.field_disabled
       },
       rules: [{ required: true }],
       renderComponentContent: (_, { disabled }) => {
         return {
           suffix: () => (disabled ? 'suffix_disabled' : 'suffix_default'),
-        };
+        }
       },
     },
     {
@@ -87,7 +87,7 @@
         span: 8,
       },
       dynamicDisabled: ({ values }) => {
-        return !!values.field_disabled;
+        return !!values.field_disabled
       },
       rules: [{ required: true }],
     },
@@ -101,13 +101,13 @@
           <FormItem name="field4" label="renderColContent渲染" rules={[{ required: true }]}>
             <Input placeholder="请输入" v-model:value={model[field]} disabled={disabled}></Input>
           </FormItem>
-        );
+        )
       },
       colProps: {
         span: 8,
       },
       dynamicDisabled: ({ values }) => {
-        return !!values.field_disabled;
+        return !!values.field_disabled
       },
     },
     {
@@ -120,7 +120,7 @@
         span: 8,
       },
       dynamicDisabled: ({ values }) => {
-        return !!values.field_disabled;
+        return !!values.field_disabled
       },
     },
     // 复合field 场景 自定义表单控件 一个控件包含多个表单录入 示例: 选择+输入
@@ -148,13 +148,13 @@
               <Input placeholder="请输入" v-model:value={model['typeValue2']} disabled={disabled} />
             </FormItem>
           </Input.Group>
-        );
+        )
       },
       colProps: {
         span: 8,
       },
       dynamicDisabled: ({ values }) => {
-        return !!values.field_disabled;
+        return !!values.field_disabled
       },
     },
     // 复合field 场景 自定义表单控件 一个控件包含多个表单录入 示例: 选择+输入
@@ -191,13 +191,13 @@
               />
             </Input.Group>
           </FormItem>
-        );
+        )
       },
       colProps: {
         span: 16,
       },
       dynamicDisabled: ({ values }) => {
-        return !!values.field_disabled;
+        return !!values.field_disabled
       },
     },
     {
@@ -209,29 +209,29 @@
       },
       labelWidth: 200,
     },
-  ];
+  ]
   export default defineComponent({
     components: { BasicForm, CollapseContainer, PageWrapper, [Input.name]: Input, FormItem },
     setup() {
-      const { createMessage } = useMessage();
+      const { createMessage } = useMessage()
       const [register, { setProps }] = useForm({
         labelWidth: 120,
         schemas,
         actionColOptions: {
           span: 24,
         },
-      });
+      })
       return {
         register,
         schemas,
         handleSubmit: (values: any) => {
-          console.log('submit values', values);
-          createMessage.success('click search,values:' + JSON.stringify(values));
+          console.log('submit values', values)
+          createMessage.success('click search,values:' + JSON.stringify(values))
         },
         setProps,
-      };
+      }
     },
-  });
+  })
 </script>
 <style lang="less" scoped>
   :deep(.local_form) .local_typeValue {

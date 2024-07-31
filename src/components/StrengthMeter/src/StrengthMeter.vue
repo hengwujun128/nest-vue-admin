@@ -19,11 +19,11 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref, watch, unref, watchEffect } from 'vue';
-  import { Input } from 'ant-design-vue';
-  import { zxcvbn } from '@zxcvbn-ts/core';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  import { propTypes } from '/@/utils/propTypes';
+  import { defineComponent, computed, ref, watch, unref, watchEffect } from 'vue'
+  import { Input } from 'ant-design-vue'
+  import { zxcvbn } from '@zxcvbn-ts/core'
+  import { useDesign } from '/@/hooks/web/useDesign'
+  import { propTypes } from '/@/utils/propTypes'
 
   export default defineComponent({
     name: 'StrengthMeter',
@@ -35,41 +35,41 @@
     },
     emits: ['score-change', 'change'],
     setup(props, { emit }) {
-      const innerValueRef = ref('');
-      const { prefixCls } = useDesign('strength-meter');
+      const innerValueRef = ref('')
+      const { prefixCls } = useDesign('strength-meter')
 
       const getPasswordStrength = computed(() => {
-        const { disabled } = props;
-        if (disabled) return -1;
-        const innerValue = unref(innerValueRef);
-        const score = innerValue ? zxcvbn(unref(innerValueRef)).score : -1;
-        emit('score-change', score);
-        return score;
-      });
+        const { disabled } = props
+        if (disabled) return -1
+        const innerValue = unref(innerValueRef)
+        const score = innerValue ? zxcvbn(unref(innerValueRef)).score : -1
+        emit('score-change', score)
+        return score
+      })
 
       function handleChange(e) {
-        innerValueRef.value = e.target.value;
+        innerValueRef.value = e.target.value
       }
 
       watchEffect(() => {
-        innerValueRef.value = props.value || '';
-      });
+        innerValueRef.value = props.value || ''
+      })
 
       watch(
         () => unref(innerValueRef),
         (val) => {
-          emit('change', val);
+          emit('change', val)
         },
-      );
+      )
 
       return {
         getPasswordStrength,
         handleChange,
         prefixCls,
         innerValueRef,
-      };
+      }
     },
-  });
+  })
 </script>
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-strength-meter';
@@ -108,7 +108,9 @@
         position: absolute;
         width: 0;
         height: inherit;
-        transition: width 0.5s ease-in-out, background 0.25s;
+        transition:
+          width 0.5s ease-in-out,
+          background 0.25s;
         border-radius: inherit;
         background-color: transparent;
 

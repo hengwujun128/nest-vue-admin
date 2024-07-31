@@ -15,34 +15,34 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue';
-  import { Modal } from 'ant-design-vue';
-  import { FormSchema } from '/@/components/Form';
-  import { BasicForm, useForm } from '/@/components/Form/index';
+  import { ref } from 'vue'
+  import { Modal } from 'ant-design-vue'
+  import { FormSchema } from '/@/components/Form'
+  import { BasicForm, useForm } from '/@/components/Form/index'
 
-  const open = ref<boolean>(true);
+  const open = ref<boolean>(true)
   const props = defineProps<{
-    title: string;
-    addFormSchemas: FormSchema[];
-    onOK?: Fn;
-    width?: string;
-    labelWidth?: number;
-    layout?: 'horizontal' | 'vertical' | 'inline';
-  }>();
+    title: string
+    addFormSchemas: FormSchema[]
+    onOK?: Fn
+    width?: string
+    labelWidth?: number
+    layout?: 'horizontal' | 'vertical' | 'inline'
+  }>()
 
   const [register, { validate }] = useForm({
     schemas: props.addFormSchemas,
     showActionButtonGroup: false,
     labelWidth: props.labelWidth || 80,
     layout: props.layout || 'horizontal',
-  });
+  })
 
   async function handleSubmit() {
-    const row = await validate();
+    const row = await validate()
     if (props.onOK) {
-      await props.onOK(row.txt);
+      await props.onOK(row.txt)
     }
-    open.value = false;
+    open.value = false
   }
 </script>
 

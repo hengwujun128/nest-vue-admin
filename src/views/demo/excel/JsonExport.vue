@@ -11,12 +11,12 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicTable } from '/@/components/Table';
-  import { jsonToSheetXlsx } from '/@/components/Excel';
-  import { columns, data } from './data';
-  import { PageWrapper } from '/@/components/Page';
-  import { jsonToMultipleSheetXlsx } from '/@/components/Excel/src/Export2Excel';
+  import { defineComponent } from 'vue'
+  import { BasicTable } from '/@/components/Table'
+  import { jsonToSheetXlsx } from '/@/components/Excel'
+  import { columns, data } from './data'
+  import { PageWrapper } from '/@/components/Page'
+  import { jsonToMultipleSheetXlsx } from '/@/components/Excel/src/Export2Excel'
 
   export default defineComponent({
     components: { BasicTable, PageWrapper },
@@ -26,7 +26,7 @@
         jsonToSheetXlsx({
           data,
           filename: '使用key作为默认头部.xlsx',
-        });
+        })
       }
 
       function customHeader() {
@@ -46,7 +46,7 @@
             // 指定顺序
             header: ['name', 'id'],
           },
-        });
+        })
       }
 
       function handleMultipleSheet() {
@@ -75,7 +75,7 @@
             },
           ],
           filename: '多Sheet导出示例.xlsx',
-        });
+        })
       }
       return {
         defaultHeader,
@@ -83,7 +83,7 @@
         handleMultipleSheet,
         columns,
         data,
-      };
+      }
     },
-  });
+  })
 </script>

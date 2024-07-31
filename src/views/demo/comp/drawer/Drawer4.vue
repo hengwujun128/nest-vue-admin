@@ -6,10 +6,10 @@
   </BasicDrawer>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
+  import { defineComponent } from 'vue'
+  import { BasicDrawer, useDrawerInner } from '/@/components/Drawer'
 
-  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
+  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index'
 
   const schemas: FormSchema[] = [
     {
@@ -29,7 +29,7 @@
         span: 12,
       },
     },
-  ];
+  ]
   export default defineComponent({
     components: { BasicDrawer, BasicForm },
     setup() {
@@ -40,15 +40,15 @@
         actionColOptions: {
           span: 24,
         },
-      });
+      })
       const [register] = useDrawerInner((data) => {
         // 方式1
         setFieldsValue({
           field2: data.data,
           field1: data.info,
-        });
-      });
-      return { register, schemas, registerForm };
+        })
+      })
+      return { register, schemas, registerForm }
     },
-  });
+  })
 </script>

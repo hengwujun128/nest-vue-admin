@@ -1,4 +1,4 @@
-import { defineApplicationConfig } from '@vben/vite-config';
+import { defineApplicationConfig } from '@vben/vite-config'
 
 // TIPS: vite.config.ts  配置作为插件进行封装
 
@@ -36,4 +36,4 @@ export default defineApplicationConfig({
     },
     base: '/vben',
   },
-});
+})

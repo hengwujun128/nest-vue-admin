@@ -35,30 +35,30 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from 'vue';
-  import { Drawer, Space } from 'ant-design-vue';
-  import { BasicForm, FormSchema, useForm, type FormProps } from '/@/components/Form';
-  import { CollapseContainer } from '/@/components/Container';
-  import { PageWrapper } from '/@/components/Page';
-  import { areaRecord } from '/@/api/demo/cascader';
+  import { defineComponent, ref } from 'vue'
+  import { Drawer, Space } from 'ant-design-vue'
+  import { BasicForm, FormSchema, useForm, type FormProps } from '/@/components/Form'
+  import { CollapseContainer } from '/@/components/Container'
+  import { PageWrapper } from '/@/components/Page'
+  import { areaRecord } from '/@/api/demo/cascader'
 
   const sizeList = [
     { value: 'large', label: 'large' },
     { value: 'middle', label: 'middle' },
     { value: 'small', label: 'small' },
     { value: 'default', label: 'defualt' },
-  ];
+  ]
 
   const layoutList = [
     { value: 'vertical', label: 'vertical' },
     { value: 'inline', label: 'inline' },
     { value: 'horizontal', label: 'horizontal' },
-  ];
+  ]
 
   const labelAlignList = [
     { value: 'left', label: 'left' },
     { value: 'right', label: 'right' },
-  ];
+  ]
 
   const schemas: FormSchema[] = [
     {
@@ -69,7 +69,7 @@
       componentProps: {
         placeholder: '自定义placeholder',
         onChange: (e: any) => {
-          console.log(e);
+          console.log(e)
         },
       },
     },
@@ -144,7 +144,7 @@
           parentCode: '',
         },
         isLeaf: (record) => {
-          return !(record.levelType < 3);
+          return !(record.levelType < 3)
         },
       },
     },
@@ -163,11 +163,11 @@
           parentCode: '',
         },
         isLeaf: (record) => {
-          return !(record.levelType < 3);
+          return !(record.levelType < 3)
         },
       },
     },
-  ];
+  ]
   const formSchemas: FormSchema[] = [
     {
       field: 'd1',
@@ -361,9 +361,9 @@
                 field: 'actionColOptions.span',
                 componentProps: { disabled: !val },
               },
-            ]);
+            ])
           },
-        };
+        }
       },
     },
     {
@@ -414,7 +414,7 @@
       colProps: { span: 24 },
       colSlot: 'other',
     },
-  ];
+  ]
 
   export default defineComponent({
     components: {
@@ -425,32 +425,32 @@
       Space,
     },
     setup() {
-      const visible = ref<boolean>(false);
-      const settingFormRef = ref();
+      const visible = ref<boolean>(false)
+      const settingFormRef = ref()
       const [registerSetting] = useForm({
         size: 'small',
         schemas: formSchemas,
         compact: true,
         actionColOptions: { span: 24 },
         showActionButtonGroup: false,
-      });
+      })
       const resetSettings = async () => {
-        setProps({ resetButtonOptions: { disabled: false, text: '重置' } });
-        setProps({ submitButtonOptions: { disabled: false, loading: false } });
-        await setFieldsValue({ field9: [] });
-        await settingFormRef.value?.resetFields();
-      };
+        setProps({ resetButtonOptions: { disabled: false, text: '重置' } })
+        setProps({ submitButtonOptions: { disabled: false, loading: false } })
+        await setFieldsValue({ field9: [] })
+        await settingFormRef.value?.resetFields()
+      }
       const handleSubmitSetting = async (values) => {
-        console.log(values);
-        await setProps(values);
-        visible.value = false;
-      };
+        console.log(values)
+        await setProps(values)
+        visible.value = false
+      }
       const [register, { setProps, setFieldsValue, updateSchema }] = useForm({
         labelWidth: 120,
         schemas,
         actionColOptions: { span: 24 },
         fieldMapToTime: [['fieldTime', ['startTime', 'endTime'], 'YYYY-MM']],
-      });
+      })
       async function handleLoad() {
         const promiseFn = function () {
           return new Promise((resolve) => {
@@ -460,37 +460,37 @@
                 province: '湖南省',
                 city: '长沙市',
                 district: '岳麓区',
-              });
-            }, 1000);
-          });
-        };
-        const item = await promiseFn();
-        const { field9, province, city, district } = item as any;
+              })
+            }, 1000)
+          })
+        }
+        const item = await promiseFn()
+        const { field9, province, city, district } = item as any
         await updateSchema({
           field: 'field9',
           componentProps: {
             displayRenderArray: [province, city, district],
           },
-        });
-        await setFieldsValue({ field9 });
-        visible.value = false;
+        })
+        await setFieldsValue({ field9 })
+        visible.value = false
       }
       const showDrawer = () => {
-        visible.value = true;
-      };
+        visible.value = true
+      }
       const onSettings = () => {
-        settingFormRef.value?.submit();
-      };
+        settingFormRef.value?.submit()
+      }
       const withClose = (formProps: Partial<FormProps>) => {
-        setProps(formProps);
-        visible.value = false;
-      };
+        setProps(formProps)
+        visible.value = false
+      }
 
       return {
         register,
         schemas,
         handleSubmit: (values) => {
-          console.log(values);
+          console.log(values)
         },
         setProps,
         handleLoad,
@@ -502,7 +502,7 @@
         resetSettings,
         registerSetting,
         handleSubmitSetting,
-      };
+      }
     },
-  });
+  })
 </script>

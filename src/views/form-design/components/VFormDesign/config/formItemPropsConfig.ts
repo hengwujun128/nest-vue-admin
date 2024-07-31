@@ -1,23 +1,23 @@
-import { IAnyObject } from '../../../typings/base-type';
-import { baseComponents, customComponents } from '../../../core/formItemConfig';
+import { IAnyObject } from '../../../typings/base-type'
+import { baseComponents, customComponents } from '../../../core/formItemConfig'
 
 export const globalConfigState: { span: number } = {
   span: 24,
-};
+}
 export interface IBaseFormAttrs {
-  name: string; // 字段名
-  label: string; // 字段标签
-  component?: string; // 属性控件
-  componentProps?: IAnyObject; // 传递给控件的属性
-  exclude?: string[]; // 需要排除的控件
-  includes?: string[]; // 符合条件的组件
-  on?: IAnyObject;
-  children?: IBaseFormAttrs[];
-  category?: 'control' | 'input';
+  name: string // 字段名
+  label: string // 字段标签
+  component?: string // 属性控件
+  componentProps?: IAnyObject // 传递给控件的属性
+  exclude?: string[] // 需要排除的控件
+  includes?: string[] // 符合条件的组件
+  on?: IAnyObject
+  children?: IBaseFormAttrs[]
+  category?: 'control' | 'input'
 }
 
 export interface IBaseFormItemControlAttrs extends IBaseFormAttrs {
-  target?: 'props' | 'options'; // 绑定到对象下的某个目标key中
+  target?: 'props' | 'options' // 绑定到对象下的某个目标key中
 }
 
 export const baseItemColumnProps: IBaseFormAttrs[] = [
@@ -27,7 +27,7 @@ export const baseItemColumnProps: IBaseFormAttrs[] = [
     component: 'Slider',
     on: {
       change(value: number) {
-        globalConfigState.span = value;
+        globalConfigState.span = value
       },
     },
     componentProps: {
@@ -148,7 +148,7 @@ export const baseItemColumnProps: IBaseFormAttrs[] = [
       marks: { 12: '' },
     },
   },
-];
+]
 
 // 控件属性面板的配置项
 export const advanceFormItemColProps: IBaseFormAttrs[] = [
@@ -174,7 +174,7 @@ export const advanceFormItemColProps: IBaseFormAttrs[] = [
     },
     exclude: ['Grid'],
   },
-];
+]
 // 控件属性面板的配置项
 export const baseFormItemProps: IBaseFormAttrs[] = [
   {
@@ -217,7 +217,7 @@ export const baseFormItemProps: IBaseFormAttrs[] = [
     },
     exclude: ['Grid'],
   },
-];
+]
 
 // 控件属性面板的配置项
 export const advanceFormItemProps: IBaseFormAttrs[] = [
@@ -299,7 +299,7 @@ export const advanceFormItemProps: IBaseFormAttrs[] = [
     },
     exclude: ['Grid'],
   },
-];
+]
 
 export const baseFormItemControlAttrs: IBaseFormItemControlAttrs[] = [
   {
@@ -348,4 +348,4 @@ export const baseFormItemControlAttrs: IBaseFormItemControlAttrs[] = [
     componentProps: {},
     includes: ['Input'],
   },
-];
+]

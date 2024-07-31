@@ -25,11 +25,11 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { Description } from '/@/components/Description/index';
-  import { BasicTable, useTable } from '/@/components/Table';
-  import { PageWrapper } from '/@/components/Page';
-  import { Divider } from 'ant-design-vue';
+  import { defineComponent } from 'vue'
+  import { Description } from '/@/components/Description/index'
+  import { BasicTable, useTable } from '/@/components/Table'
+  import { PageWrapper } from '/@/components/Page'
+  import { Divider } from 'ant-design-vue'
 
   import {
     refundSchema,
@@ -40,7 +40,7 @@
     refundTimeTableSchema,
     refundTableData,
     refundTimeTableData,
-  } from './data';
+  } from './data'
 
   export default defineComponent({
     components: { Description, BasicTable, PageWrapper, [Divider.name]: Divider },
@@ -54,7 +54,7 @@
         scroll: { y: 300 },
         showSummary: true,
         summaryFunc: handleSummary,
-      });
+      })
 
       const [registerTimeTable] = useTable({
         title: '退货进度',
@@ -63,22 +63,22 @@
         dataSource: refundTimeTableData,
         showIndexColumn: false,
         scroll: { y: 300 },
-      });
+      })
 
       function handleSummary(tableData: any[]) {
-        let totalT5 = 0;
-        let totalT6 = 0;
+        let totalT5 = 0
+        let totalT6 = 0
         tableData.forEach((item) => {
-          totalT5 += item.t5;
-          totalT6 += item.t6;
-        });
+          totalT5 += item.t5
+          totalT6 += item.t6
+        })
         return [
           {
             t1: '总计',
             t5: totalT5,
             t6: totalT6,
           },
-        ];
+        ]
       }
       return {
         registerRefundTable,
@@ -87,9 +87,9 @@
         refundData,
         personSchema,
         personData,
-      };
+      }
     },
-  });
+  })
 </script>
 <style lang="less" scoped>
   .desc-wrap {

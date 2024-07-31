@@ -20,18 +20,18 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { BasicTable, ColumnChangeParam, useTable } from '/@/components/Table';
-  import { getBasicColumns, getBasicShortColumns } from './tableData';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { demoListApi } from '/@/api/demo/table';
+  import { defineComponent } from 'vue'
+  import { BasicTable, ColumnChangeParam, useTable } from '/@/components/Table'
+  import { getBasicColumns, getBasicShortColumns } from './tableData'
+  import { useMessage } from '/@/hooks/web/useMessage'
+  import { demoListApi } from '/@/api/demo/table'
 
   export default defineComponent({
     components: { BasicTable },
     setup() {
-      const { createMessage } = useMessage();
+      const { createMessage } = useMessage()
       function onChange() {
-        console.log('onChange', arguments);
+        console.log('onChange', arguments)
       }
       const [
         registerTable,
@@ -66,15 +66,15 @@
           type: 'checkbox',
         },
         onColumnsChange: (data: ColumnChangeParam[]) => {
-          console.log('ColumnsChanged', data);
+          console.log('ColumnsChanged', data)
         },
-      });
+      })
 
       function changeLoading() {
-        setLoading(true);
+        setLoading(true)
         setTimeout(() => {
-          setLoading(false);
-        }, 1000);
+          setLoading(false)
+        }, 1000)
       }
       function changeColumns() {
         setProps({
@@ -83,7 +83,7 @@
             type: 'checkbox',
           },
           showIndexColumn: true,
-        });
+        })
       }
       function reloadTable() {
         setProps({
@@ -92,50 +92,50 @@
             type: 'checkbox',
           },
           showIndexColumn: true,
-        });
+        })
         reload({
           page: 1,
-        });
+        })
       }
       function getColumn() {
-        createMessage.info('请在控制台查看！');
-        console.log(getColumns());
+        createMessage.info('请在控制台查看！')
+        console.log(getColumns())
       }
 
       function getTableData() {
-        createMessage.info('请在控制台查看！');
-        console.log(getDataSource());
+        createMessage.info('请在控制台查看！')
+        console.log(getDataSource())
       }
 
       function getTableRawData() {
-        createMessage.info('请在控制台查看！');
-        console.log(getRawDataSource());
+        createMessage.info('请在控制台查看！')
+        console.log(getRawDataSource())
       }
 
       function getPagination() {
-        createMessage.info('请在控制台查看！');
-        console.log(getPaginationRef());
+        createMessage.info('请在控制台查看！')
+        console.log(getPaginationRef())
       }
 
       function setPaginationInfo() {
         setPagination({
           current: 2,
-        });
-        reload();
+        })
+        reload()
       }
       function getSelectRowList() {
-        createMessage.info('请在控制台查看！');
-        console.log(getSelectRows());
+        createMessage.info('请在控制台查看！')
+        console.log(getSelectRows())
       }
       function getSelectRowKeyList() {
-        createMessage.info('请在控制台查看！');
-        console.log(getSelectRowKeys());
+        createMessage.info('请在控制台查看！')
+        console.log(getSelectRowKeys())
       }
       function setSelectedRowKeyList() {
-        setSelectedRowKeys(['0', '1', '2']);
+        setSelectedRowKeys(['0', '1', '2'])
       }
       function clearSelect() {
-        clearSelectedRowKeys();
+        clearSelectedRowKeys()
       }
 
       return {
@@ -153,7 +153,7 @@
         setSelectedRowKeyList,
         clearSelect,
         onChange,
-      };
+      }
     },
-  });
+  })
 </script>

@@ -97,4 +97,4 @@ export default {
     smsCode: '短信验证码',
     mobile: '手机号码',
   },
-};
+}

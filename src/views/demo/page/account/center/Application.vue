@@ -28,10 +28,10 @@
   </List>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { List, Card, Row, Col } from 'ant-design-vue';
-  import Icon from '@/components/Icon/Icon.vue';
-  import { applicationList } from './data';
+  import { defineComponent } from 'vue'
+  import { List, Card, Row, Col } from 'ant-design-vue'
+  import Icon from '@/components/Icon/Icon.vue'
+  import { applicationList } from './data'
 
   export default defineComponent({
     components: {
@@ -46,9 +46,9 @@
       return {
         prefixCls: 'account-center-application',
         list: applicationList,
-      };
+      }
     },
-  });
+  })
 </script>
 <style lang="less">
   .account-center-application {

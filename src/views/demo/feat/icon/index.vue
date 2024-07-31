@@ -51,9 +51,9 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { CollapseContainer } from '/@/components/Container/index';
-  import { Alert } from 'ant-design-vue';
+  import { defineComponent } from 'vue'
+  import { CollapseContainer } from '/@/components/Container/index'
+  import { Alert } from 'ant-design-vue'
   import {
     QqCircleFilled,
     GithubFilled,
@@ -62,13 +62,13 @@
     IeCircleFilled,
     TaobaoCircleFilled,
     CodepenCircleFilled,
-  } from '@ant-design/icons-vue';
+  } from '@ant-design/icons-vue'
 
-  import { IconPicker, SvgIcon } from '/@/components/Icon/index';
-  import Icon from '/@/components/Icon/Icon.vue';
+  import { IconPicker, SvgIcon } from '/@/components/Icon/index'
+  import Icon from '/@/components/Icon/Icon.vue'
 
-  import { openWindow } from '/@/utils';
-  import { PageWrapper } from '/@/components/Page';
+  import { openWindow } from '/@/utils'
+  import { PageWrapper } from '/@/components/Page'
 
   export default defineComponent({
     components: {
@@ -89,9 +89,9 @@
     setup() {
       return {
         toIconify: () => {
-          openWindow('https://iconify.design/');
+          openWindow('https://iconify.design/')
         },
-      };
+      }
     },
-  });
+  })
 </script>
