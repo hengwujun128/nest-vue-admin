@@ -190,6 +190,23 @@ export const usePermissionStore = defineStore({
           return route
         })
       }
+      const parseRouteRoles = (routes) => {
+        return routes.map((route) => {
+          route.component = ROUTE_MAP[route.name] || ROUTE_MAP.NOT_FOUND
+          if (route?.meta?.roles) {
+            try {
+              route.meta.roles = JSON.parse(route.meta.roles)
+            } catch (e) {
+              route.meta.roles = []
+            }
+          }
+          if (route.children && route.children.length > 0) {
+            route.children = parseRouteRoles(route.children)
+          }
+
+          return route
+        })
+      }
       try {
         backendRouteList = JSON.parse(`[{
           "path": "/dashboard",
@@ -212,13 +229,15 @@ export const usePermissionStore = defineStore({
                   "path": "workbench",
                   "name": "Workbench",
                   "meta": {
-                      "title": "routes.dashboard.workbench"
+                      "title": "routes.dashboard.workbench",
+                      "roles": "[\\"test\\"]"
                   }
               }
           ]
       }]`)
 
         backendRouteList = wrapperRouteComponent(backendRouteList)
+        backendRouteList = parseRouteRoles(backendRouteList)
         console.log(backendRouteList)
       } catch (e) {
         console.log(e)
