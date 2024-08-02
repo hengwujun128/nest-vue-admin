@@ -20,7 +20,7 @@ import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic'
 
 import { filter } from '/@/utils/helper/treeHelper'
 
-import { getMenuList } from '/@/api/sys/menu'
+import { getMenuList, getAllMenus } from '/@/api/sys/menu'
 import { getPermCode } from '/@/api/sys/user'
 
 import { useMessage } from '/@/hooks/web/useMessage'
@@ -180,6 +180,8 @@ export const usePermissionStore = defineStore({
       console.log(asyncRoutes)
       // backendRouteList = asyncRoutes // 模拟后端下发的路由列表
       console.log(backendRouteList)
+      const getAllMenuData = () => getAllMenus()
+
       const wrapperRouteComponent = (routes) => {
         return routes.map((route) => {
           route.component = ROUTE_MAP[route.name] || ROUTE_MAP.NOT_FOUND
@@ -214,123 +216,10 @@ export const usePermissionStore = defineStore({
       }
 
       try {
-        backendRouteList = JSON.parse(`[
-          {
-              "path": "/about",
-              "name": "About",
-              "redirect": "/about/index",
-              "meta": {
-                  "hideChildrenInMenu": true,
-                  "icon": "simple-icons:about-dot-me",
-                  "title": "routes.dashboard.about",
-                  "orderNo": 100000
-              },
-              "children": [
-                  {
-                      "path": "index",
-                      "name": "AboutPage",
-                      "meta": {
-                          "title": "routes.dashboard.about",
-                          "icon": "simple-icons:about-dot-me",
-                          "hideMenu": true
-                      }
-                  }
-              ]
-          },
-
-          {
-          "path": "/dashboard",
-          "name": "Dashboard",
-          "redirect": "/dashboard/analysis",
-          "meta": {
-              "orderNo": 10,
-              "icon": "ion:grid-outline",
-              "title": "routes.dashboard.dashboard"
-          },
-          "children": [
-              {
-                  "path": "analysis",
-                  "name": "Analysis",
-                  "meta": {
-                      "title": "routes.dashboard.analysis"
-                  }
-              },
-              {
-                  "path": "workbench",
-                  "name": "Workbench",
-                  "meta": {
-                      "title": "routes.dashboard.workbench",
-                      "roles": "[\\"test\\"]"
-                  }
-              }
-          ]
-      },
-      {
-    "path": "/charts",
-    "name": "Charts",
-    "redirect": "/charts/echarts/map",
-    "meta": {
-        "orderNo": 500,
-        "icon": "ion:bar-chart-outline",
-        "title": "routes.demo.charts.charts"
-    },
-    "children": [
-        {
-            "path": "baiduMap",
-            "name": "BaiduMap",
-            "meta": {
-                "title": "routes.demo.charts.baiduMap"
-            }
-        },
-        {
-            "path": "aMap",
-            "name": "AMap",
-            "meta": {
-                "title": "routes.demo.charts.aMap"
-            }
-        },
-        {
-            "path": "googleMap",
-            "name": "GoogleMap",
-            "meta": {
-                "title": "routes.demo.charts.googleMap"
-            }
-        },
-        {
-            "path": "echarts",
-            "name": "Echarts",
-            "meta": {
-                "title": "Echarts"
-            },
-            "redirect": "/charts/echarts/map",
-            "children": [
-                {
-                    "path": "map",
-                    "name": "Map",
-                    "meta": {
-                        "title": "routes.demo.charts.map"
-                    }
-                },
-                {
-                    "path": "line",
-                    "name": "Line",
-                    "meta": {
-                        "title": "routes.demo.charts.line"
-                    }
-                },
-                {
-                    "path": "pie",
-                    "name": "Pie",
-                    "meta": {
-                        "title": "routes.demo.charts.pie"
-                    }
-                }
-            ]
-        }
-    ]
-  }
-      ]`)
-
+        // 对后端路由字符串进行处理
+        const backendRouteData = await getAllMenuData()
+        console.log(backendRouteData)
+        backendRouteList = JSON.parse(backendRouteData)
         backendRouteList = wrapperRouteComponent(backendRouteList)
         backendRouteList = parseRouteRoles(backendRouteList)
         backendRouteList = addPageNotFoundAtFirst(backendRouteList)
