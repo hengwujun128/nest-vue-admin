@@ -207,8 +207,38 @@ export const usePermissionStore = defineStore({
           return route
         })
       }
+      // 抽离 page not found,数组开始插入一个元素
+      const addPageNotFoundAtFirst = (routes) => {
+        routes.unshift(PAGE_NOT_FOUND_ROUTE)
+        return routes
+      }
+
       try {
-        backendRouteList = JSON.parse(`[{
+        backendRouteList = JSON.parse(`[
+          {
+              "path": "/about",
+              "name": "About",
+              "redirect": "/about/index",
+              "meta": {
+                  "hideChildrenInMenu": true,
+                  "icon": "simple-icons:about-dot-me",
+                  "title": "routes.dashboard.about",
+                  "orderNo": 100000
+              },
+              "children": [
+                  {
+                      "path": "index",
+                      "name": "AboutPage",
+                      "meta": {
+                          "title": "routes.dashboard.about",
+                          "icon": "simple-icons:about-dot-me",
+                          "hideMenu": true
+                      }
+                  }
+              ]
+          },
+
+          {
           "path": "/dashboard",
           "name": "Dashboard",
           "redirect": "/dashboard/analysis",
@@ -234,10 +264,76 @@ export const usePermissionStore = defineStore({
                   }
               }
           ]
-      }]`)
+      },
+      {
+    "path": "/charts",
+    "name": "Charts",
+    "redirect": "/charts/echarts/map",
+    "meta": {
+        "orderNo": 500,
+        "icon": "ion:bar-chart-outline",
+        "title": "routes.demo.charts.charts"
+    },
+    "children": [
+        {
+            "path": "baiduMap",
+            "name": "BaiduMap",
+            "meta": {
+                "title": "routes.demo.charts.baiduMap"
+            }
+        },
+        {
+            "path": "aMap",
+            "name": "AMap",
+            "meta": {
+                "title": "routes.demo.charts.aMap"
+            }
+        },
+        {
+            "path": "googleMap",
+            "name": "GoogleMap",
+            "meta": {
+                "title": "routes.demo.charts.googleMap"
+            }
+        },
+        {
+            "path": "echarts",
+            "name": "Echarts",
+            "meta": {
+                "title": "Echarts"
+            },
+            "redirect": "/charts/echarts/map",
+            "children": [
+                {
+                    "path": "map",
+                    "name": "Map",
+                    "meta": {
+                        "title": "routes.demo.charts.map"
+                    }
+                },
+                {
+                    "path": "line",
+                    "name": "Line",
+                    "meta": {
+                        "title": "routes.demo.charts.line"
+                    }
+                },
+                {
+                    "path": "pie",
+                    "name": "Pie",
+                    "meta": {
+                        "title": "routes.demo.charts.pie"
+                    }
+                }
+            ]
+        }
+    ]
+  }
+      ]`)
 
         backendRouteList = wrapperRouteComponent(backendRouteList)
         backendRouteList = parseRouteRoles(backendRouteList)
+        backendRouteList = addPageNotFoundAtFirst(backendRouteList)
         console.log(backendRouteList)
       } catch (e) {
         console.log(e)
