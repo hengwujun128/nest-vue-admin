@@ -116,6 +116,7 @@ export const useUserStore = defineStore({
         const permissionStore = usePermissionStore()
         // 是否是动态添加路由,初始化的时候是动态添加路由,生成左侧菜单
         if (!permissionStore.isDynamicAddedRoute) {
+          //核心方法,动态添加路由,也是构建菜单的过程
           const routes = await permissionStore.buildRoutesAction()
           routes.forEach((route) => {
             router.addRoute(route as unknown as RouteRecordRaw)
@@ -133,9 +134,11 @@ export const useUserStore = defineStore({
     async getUserInfoAction(): Promise<UserInfo | null> {
       if (!this.getToken) return null
       const userInfo = await getUserInfo()
-      const { roles = [] } = userInfo
-      if (isArray(roles)) {
-        const roleList = roles.map((item) => item.value) as RoleEnum[]
+      // todo: roles 命名不一致
+      const { roles } = userInfo
+      const rolesArr = JSON.parse(roles as string)
+      if (isArray(rolesArr)) {
+        const roleList = rolesArr.map((item) => item) as RoleEnum[]
         this.setRoleList(roleList)
       } else {
         userInfo.roles = []

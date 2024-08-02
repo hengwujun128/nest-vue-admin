@@ -13,6 +13,7 @@ import projectSetting from '/@/settings/projectSetting'
 
 import { PermissionModeEnum } from '/@/enums/appEnum'
 
+// 前端路由表
 import { asyncRoutes } from '/@/router/routes'
 import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic'
 
@@ -109,7 +110,7 @@ export const usePermissionStore = defineStore({
       this.setPermCodeList(codeList)
     },
 
-    // 构建路由
+    // 构建路由-基于角色构建前端路由（动态路由）
     async buildRoutesAction(): Promise<AppRouteRecordRaw[]> {
       const { t } = useI18n()
       const userStore = useUserStore()
@@ -117,6 +118,7 @@ export const usePermissionStore = defineStore({
 
       let routes: AppRouteRecordRaw[] = []
       const roleList = toRaw(userStore.getRoleList) || []
+      // 权限模式, 三种,
       const { permissionMode = projectSetting.permissionMode } = appStore.getProjectConfig
 
       // 路由过滤器 在 函数filter 作为回调传入遍历使用
@@ -168,7 +170,7 @@ export const usePermissionStore = defineStore({
         }
         return
       }
-
+      // TIPS:
       switch (permissionMode) {
         // 角色权限
         case PermissionModeEnum.ROLE:
@@ -202,7 +204,7 @@ export const usePermissionStore = defineStore({
           this.setFrontMenuList(menuList)
 
           // Convert multi-level routing to level 2 routing
-          // 将多级路由转换为 2 级路由
+          // 将多级路由转换为 2 级路由(为了显示菜单)
           routes = flatMultiLevelRoutes(routes)
           break
 

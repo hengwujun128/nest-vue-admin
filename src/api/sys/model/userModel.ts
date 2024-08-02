@@ -6,10 +6,11 @@ export interface LoginParams {
   password: string
 }
 
-export interface RoleInfo {
-  roleName: string
-  value: string
-}
+// export interface RoleInfo {
+//   roleName: string
+//   value: string
+// }
+export type RoleInfo = string
 
 /**
  * @description: Login interface return value
@@ -17,14 +18,14 @@ export interface RoleInfo {
 export interface LoginResultModel {
   userId: string | number
   token: string
-  roles: RoleInfo[]
+  roles: RoleInfo[] | string
 }
 
 /**
  * @description: Get user information return value
  */
 export interface GetUserInfoModel {
-  roles: RoleInfo[]
+  roles: RoleInfo[] | string
   // 用户id
   userId: string | number
   // 用户名
