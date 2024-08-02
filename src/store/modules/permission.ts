@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { AppRouteRecordRaw, Menu } from '/@/router/types'
 
 import { defineStore } from 'pinia'
@@ -24,6 +25,7 @@ import { getPermCode } from '/@/api/sys/user'
 
 import { useMessage } from '/@/hooks/web/useMessage'
 import { PageEnum } from '/@/enums/pageEnum'
+import { ROUTE_MAP } from '@/router/route-map'
 
 interface PermissionState {
   // Permission code list
@@ -170,12 +172,65 @@ export const usePermissionStore = defineStore({
         }
         return
       }
+      /* -------------------------------------------------------------------------- */
+      /*                              基于前端路由名称和组件映射的改造                   */
+      /* -------------------------------------------------------------------------- */
+      /* ------------------------------ 后端下发 routes 改造 start ------------------------ */
+      let backendRouteList: AppRouteRecordRaw[] = []
+      console.log(asyncRoutes)
+      // backendRouteList = asyncRoutes // 模拟后端下发的路由列表
+      console.log(backendRouteList)
+      const wrapperRouteComponent = (routes) => {
+        return routes.map((route) => {
+          route.component = ROUTE_MAP[route.name] || ROUTE_MAP.NOT_FOUND
+          if (route.children && route.children.length > 0) {
+            route.children = wrapperRouteComponent(route.children)
+          }
+
+          return route
+        })
+      }
+      try {
+        backendRouteList = JSON.parse(`[{
+          "path": "/dashboard",
+          "name": "Dashboard",
+          "redirect": "/dashboard/analysis",
+          "meta": {
+              "orderNo": 10,
+              "icon": "ion:grid-outline",
+              "title": "routes.dashboard.dashboard"
+          },
+          "children": [
+              {
+                  "path": "analysis",
+                  "name": "Analysis",
+                  "meta": {
+                      "title": "routes.dashboard.analysis"
+                  }
+              },
+              {
+                  "path": "workbench",
+                  "name": "Workbench",
+                  "meta": {
+                      "title": "routes.dashboard.workbench"
+                  }
+              }
+          ]
+      }]`)
+
+        backendRouteList = wrapperRouteComponent(backendRouteList)
+        console.log(backendRouteList)
+      } catch (e) {
+        console.log(e)
+      }
+
+      /* ------------------------------ 后端下发 routes 改造 end ------------------------------ */
       // TIPS:
       switch (permissionMode) {
         // 角色权限
         case PermissionModeEnum.ROLE:
           // 对非一级路由进行过滤
-          routes = filter(asyncRoutes, routeFilter)
+          routes = filter(backendRouteList, routeFilter)
           // 对一级路由根据角色权限过滤
           routes = routes.filter(routeFilter)
           // Convert multi-level routing to level 2 routing
@@ -186,7 +241,7 @@ export const usePermissionStore = defineStore({
         // 路由映射， 默认进入该case
         case PermissionModeEnum.ROUTE_MAPPING:
           // 对非一级路由进行过滤
-          routes = filter(asyncRoutes, routeFilter)
+          routes = filter(backendRouteList, routeFilter)
           // 对一级路由再次根据角色权限过滤
           routes = routes.filter(routeFilter)
           // 将路由转换成菜单

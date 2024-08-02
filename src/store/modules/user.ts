@@ -136,9 +136,9 @@ export const useUserStore = defineStore({
       const userInfo = await getUserInfo()
       // todo: roles 命名不一致
       const { roles } = userInfo
-      const rolesArr = JSON.parse(roles as string)
+      const rolesArr = typeof roles === 'string' ? JSON.parse(roles) : roles
       if (isArray(rolesArr)) {
-        const roleList = rolesArr.map((item) => item) as RoleEnum[]
+        const roleList = rolesArr.map((item) => item) as RoleEnum[] // NOTE: 强制类型转换
         this.setRoleList(roleList)
       } else {
         userInfo.roles = []
