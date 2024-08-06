@@ -177,9 +177,8 @@ export const usePermissionStore = defineStore({
       /* -------------------------------------------------------------------------- */
       /* ------------------------------ 后端下发 routes 改造 start ------------------------ */
       let backendRouteList: AppRouteRecordRaw[] = []
-      console.log(asyncRoutes)
+      // console.log(JSON.stringify(asyncRoutes))
       // backendRouteList = asyncRoutes // 模拟后端下发的路由列表
-      console.log(backendRouteList)
       const getAllMenuData = () => getAllMenus()
 
       const wrapperRouteComponent = (routes) => {
@@ -192,6 +191,7 @@ export const usePermissionStore = defineStore({
           return route
         })
       }
+
       const parseRouteRoles = (routes) => {
         return routes.map((route) => {
           route.component = ROUTE_MAP[route.name] || ROUTE_MAP.NOT_FOUND
@@ -199,6 +199,7 @@ export const usePermissionStore = defineStore({
             try {
               route.meta.roles = JSON.parse(route.meta.roles)
             } catch (e) {
+              console.log(e)
               route.meta.roles = []
             }
           }
@@ -218,12 +219,13 @@ export const usePermissionStore = defineStore({
       try {
         // 对后端路由字符串进行处理
         const backendRouteData = await getAllMenuData()
-        console.log(backendRouteData)
-        backendRouteList = JSON.parse(backendRouteData)
+        console.log('---backendRouteData---', backendRouteData)
+        // backendRouteList = JSON.parse(backendRouteData) //
+        backendRouteList = backendRouteData
         backendRouteList = wrapperRouteComponent(backendRouteList)
         backendRouteList = parseRouteRoles(backendRouteList)
         backendRouteList = addPageNotFoundAtFirst(backendRouteList)
-        console.log(backendRouteList)
+        console.log('---finalbackendRouteData---', backendRouteList)
       } catch (e) {
         console.log(e)
       }

@@ -149,6 +149,7 @@ export default {
   permission: {
     permission: 'Permission',
 
+    menu: 'Menu Management',
     front: 'front-end',
     frontPage: 'Page',
     frontBtn: 'Button',
