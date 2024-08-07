@@ -179,7 +179,35 @@ export const usePermissionStore = defineStore({
       let backendRouteList: AppRouteRecordRaw[] = []
       // console.log(JSON.stringify(asyncRoutes))
       // backendRouteList = asyncRoutes // 模拟后端下发的路由列表
-      const getAllMenuData = () => getAllMenus()
+
+      const menuListToMenuRoutes = (menuList) => {
+        const menuRoutes: AppRouteRecordRaw[] = []
+        menuList.forEach((menu) => {
+          if (menu.meta) {
+            try {
+              menu.meta = JSON.parse(menu.meta)
+            } catch (e) {
+              console.log(e)
+            }
+          }
+
+          if (menu.pid === 0) {
+            menuRoutes.push(menu)
+          } else {
+            const parentMenu = menuList.find((m) => m.id === menu.pid)
+            if (!parentMenu.children) {
+              parentMenu.children = []
+            }
+            parentMenu.children.push(menu)
+          }
+        })
+        return menuRoutes
+      }
+      const getAllMenuData = () => {
+        return getAllMenus().then((data) => {
+          return menuListToMenuRoutes(data)
+        })
+      }
 
       const wrapperRouteComponent = (routes) => {
         return routes.map((route) => {
