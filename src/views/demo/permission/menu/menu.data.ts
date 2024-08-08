@@ -1,44 +1,44 @@
 import { BasicColumn, FormSchema } from '/@/components/Table'
 import { h } from 'vue'
 import { Tag } from 'ant-design-vue'
-import Icon from '@/components/Icon/Icon.vue'
+// import Icon from '@/components/Icon/Icon.vue'
 
 export const columns: BasicColumn[] = [
   {
-    title: '菜单名称',
-    dataIndex: 'menuName',
-    width: 200,
-    align: 'left',
-  },
-  {
-    title: '图标',
-    dataIndex: 'icon',
-    width: 50,
-    customRender: ({ record }) => {
-      return h(Icon, { icon: record.icon })
-    },
-  },
-  {
-    title: '权限标识',
-    dataIndex: 'permission',
+    title: '菜单路径',
+    dataIndex: 'path',
     width: 180,
   },
   {
-    title: '组件',
-    dataIndex: 'component',
+    title: '菜单名称',
+    dataIndex: 'name',
+    width: 200,
+    align: 'left',
+  },
+  // {
+  //   title: '图标',
+  //   dataIndex: 'icon',
+  //   width: 50,
+  //   customRender: ({ record }) => {
+  //     return h(Icon, { icon: record.icon })
+  //   },
+  // },
+
+  {
+    title: '重定向',
+    dataIndex: 'redirect',
   },
   {
-    title: '排序',
-    dataIndex: 'orderNo',
-    width: 50,
+    title: '元数据',
+    dataIndex: 'meta',
   },
   {
     title: '状态',
     dataIndex: 'status',
     width: 80,
     customRender: ({ record }) => {
-      const status = record.status
-      const enable = ~~status === 0
+      const status = record.active
+      const enable = ~~status === 1
       const color = enable ? 'green' : 'red'
       const text = enable ? '启用' : '停用'
       return h(Tag, { color: color }, () => text)

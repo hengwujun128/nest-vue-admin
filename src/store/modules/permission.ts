@@ -20,7 +20,7 @@ import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic'
 
 import { filter } from '/@/utils/helper/treeHelper'
 
-import { getMenuList, getAllMenus } from '/@/api/sys/menu'
+import { getMenuList, getActiveMenus } from '/@/api/sys/menu'
 import { getPermCode } from '/@/api/sys/user'
 
 import { useMessage } from '/@/hooks/web/useMessage'
@@ -195,16 +195,19 @@ export const usePermissionStore = defineStore({
             menuRoutes.push(menu)
           } else {
             const parentMenu = menuList.find((m) => m.id === menu.pid)
-            if (!parentMenu.children) {
-              parentMenu.children = []
+            // 父菜单如果不存在,说明父菜单被禁用,则其下的子菜单也不显示
+            if (parentMenu) {
+              if (!parentMenu.children) {
+                parentMenu.children = []
+              }
+              parentMenu.children.push(menu)
             }
-            parentMenu.children.push(menu)
           }
         })
         return menuRoutes
       }
       const getAllMenuData = () => {
-        return getAllMenus().then((data) => {
+        return getActiveMenus().then((data) => {
           return menuListToMenuRoutes(data)
         })
       }

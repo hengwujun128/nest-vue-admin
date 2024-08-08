@@ -4,6 +4,7 @@ import { getMenuListResultModel } from './model/menuModel'
 enum Api {
   GetMenuList = '/getMenuList',
   GetAllMenus = '/menu',
+  GetActiveMenus = '/menu/active',
 }
 
 /**
@@ -15,6 +16,6 @@ export const getMenuList = () => {
 }
 
 // 获取菜单接口
-export const getAllMenus = () => {
-  return defHttp.get({ url: Api.GetAllMenus })
+export const getActiveMenus = () => {
+  return defHttp.get({ url: Api.GetActiveMenus })
 }

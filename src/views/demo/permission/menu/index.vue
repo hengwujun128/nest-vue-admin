@@ -1,9 +1,11 @@
 <template>
   <div>
     <BasicTable @register="registerTable" @fetch-success="onFetchSuccess">
+      <!--  -->
       <template #toolbar>
         <a-button type="primary" @click="handleCreate"> 新增菜单 </a-button>
       </template>
+      <!--  -->
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
           <TableAction
@@ -45,6 +47,8 @@
     components: { BasicTable, MenuDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer()
+
+      // hooks
       const [registerTable, { reload, expandAll }] = useTable({
         title: '菜单列表',
         api: getMenuList,
