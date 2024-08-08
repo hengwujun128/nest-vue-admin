@@ -1,9 +1,14 @@
 import { BasicColumn, FormSchema } from '/@/components/Table'
 import { h } from 'vue'
-import { Tag } from 'ant-design-vue'
+import { Tag, Tooltip } from 'ant-design-vue'
 // import Icon from '@/components/Icon/Icon.vue'
 
 export const columns: BasicColumn[] = [
+  {
+    title: '菜单ID',
+    dataIndex: 'id',
+    width: 100,
+  },
   {
     title: '菜单路径',
     dataIndex: 'path',
@@ -31,6 +36,24 @@ export const columns: BasicColumn[] = [
   {
     title: '元数据',
     dataIndex: 'meta',
+    width: 100,
+    customRender({ text }) {
+      return h(
+        Tooltip,
+        {
+          title: text,
+          placement: 'top',
+        },
+        () => {
+          return text.slice(0, 10) + '...'
+        },
+      )
+    },
+  },
+  {
+    title: '父菜单ID',
+    dataIndex: 'pid',
+    width: 100,
   },
   {
     title: '状态',
@@ -44,11 +67,11 @@ export const columns: BasicColumn[] = [
       return h(Tag, { color: color }, () => text)
     },
   },
-  {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    width: 180,
-  },
+  // {
+  //   title: '创建时间',
+  //   dataIndex: 'createTime',
+  //   width: 180,
+  // },
 ]
 
 const isDir = (type: string) => type === '0'
