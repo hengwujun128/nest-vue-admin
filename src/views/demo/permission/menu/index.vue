@@ -28,6 +28,7 @@
         </template>
       </template>
     </BasicTable>
+    <!-- 封装新增 menu 组件 -->
     <MenuDrawer @register="registerDrawer" @success="handleSuccess" />
   </div>
 </template>

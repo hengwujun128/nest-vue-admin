@@ -1,4 +1,5 @@
 <template>
+  <!-- MenuDrawer 组件是 form 和 Draw 组件的结合, 因此又基于它们再次封装 -->
   <BasicDrawer
     v-bind="$attrs"
     @register="registerDrawer"
@@ -24,7 +25,7 @@
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true)
-
+      // 表单初始化 ,统一使用 hook(useForm)
       const [registerForm, { resetFields, setFieldsValue, updateSchema, validate }] = useForm({
         labelWidth: 100,
         schemas: formSchema,
@@ -42,6 +43,7 @@
             ...data.record,
           })
         }
+        // drawer 请求 API
         const treeData = await getMenuList()
         updateSchema({
           field: 'parentMenu',
@@ -51,6 +53,7 @@
 
       const getTitle = computed(() => (!unref(isUpdate) ? '新增菜单' : '编辑菜单'))
 
+      // 提交
       async function handleSubmit() {
         try {
           const values = await validate()
@@ -58,6 +61,7 @@
           // TODO custom api
           console.log(values)
           closeDrawer()
+          alert('submit')
           emit('success')
         } finally {
           setDrawerProps({ confirmLoading: false })

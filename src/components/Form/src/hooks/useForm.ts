@@ -25,6 +25,7 @@ export function useForm(props?: Props): UseFormReturnType {
     return form as FormActionType
   }
 
+  // 供外部组件调用(    <BasicForm @register="registerForm" />)
   function register(instance: FormActionType) {
     isProdMode() &&
       onUnmounted(() => {
@@ -39,6 +40,7 @@ export function useForm(props?: Props): UseFormReturnType {
     watch(
       () => props,
       () => {
+        // instance 就是定义和封装了一个对象FormActionType, 里面有setProps 方法
         props && instance.setProps(getDynamicProps(props))
       },
       {
