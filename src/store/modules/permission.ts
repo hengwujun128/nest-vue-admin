@@ -214,7 +214,7 @@ export const usePermissionStore = defineStore({
 
       const wrapperRouteComponent = (routes) => {
         return routes.map((route) => {
-          route.component = ROUTE_MAP[route.name] || ROUTE_MAP.NOT_FOUND
+          route.component = ROUTE_MAP[route.name]
           if (route.children && route.children.length > 0) {
             route.children = wrapperRouteComponent(route.children)
           }
@@ -225,7 +225,7 @@ export const usePermissionStore = defineStore({
 
       const parseRouteRoles = (routes) => {
         return routes.map((route) => {
-          route.component = ROUTE_MAP[route.name] || ROUTE_MAP.NOT_FOUND
+          route.component = ROUTE_MAP[route.name]
           if (route?.meta?.roles) {
             try {
               route.meta.roles = JSON.parse(route.meta.roles)

@@ -1,5 +1,7 @@
 <template>
+  <!-- 页面主要是通过 table 和MenuDrawer 构成  -->
   <div>
+    <!-- BasicTable 自带搜索功能 -->
     <BasicTable @register="registerTable" @fetch-success="onFetchSuccess">
       <!--  -->
       <template #toolbar>
