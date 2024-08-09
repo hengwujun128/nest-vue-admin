@@ -73,19 +73,14 @@
           console.log(values)
           delete values.parentMenu
 
-          let res
           if (unref(isUpdate)) {
             values.id = updatedRecordId.value
-            res = await updateMenu(values)
+            await updateMenu(values)
           } else {
-            res = await createMenu({ ...values })
+            await createMenu({ ...values })
           }
-
-          console.log(res)
-          if (res.code === 0) {
-            closeDrawer()
-            emit('success')
-          }
+          closeDrawer()
+          emit('success')
         } finally {
           setDrawerProps({ confirmLoading: false })
         }

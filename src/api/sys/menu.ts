@@ -1,5 +1,5 @@
 import { defHttp } from '/@/utils/http/axios'
-import { getMenuListResultModel } from './model/menuModel'
+import { getMenuListResultModel, RouteItem } from './model/menuModel'
 
 enum Api {
   GetMenuList = '/getMenuList',
@@ -18,15 +18,15 @@ export const getMenuList = () => {
 
 // 获取菜单接口
 export const getActiveMenus = () => {
-  return defHttp.get({ url: Api.GetActiveMenus })
+  return defHttp.get<getMenuListResultModel>({ url: Api.GetActiveMenus })
 }
 
 // 新增菜单
-export const createMenu = (params) => {
-  return defHttp.post({ url: Api.CreateMenu, data: params })
+export const createMenu = (params: RouteItem) => {
+  return defHttp.post({ url: Api.CreateMenu, data: params }, { successMessageMode: 'message' })
 }
 
 // 编辑菜单
-export const updateMenu = (params) => {
-  return defHttp.put({ url: Api.CreateMenu, data: params })
+export const updateMenu = (params: RouteItem) => {
+  return defHttp.put({ url: Api.CreateMenu, data: params }, { successMessageMode: 'message' })
 }
