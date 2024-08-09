@@ -18,7 +18,7 @@
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer'
 
   import { getMenuList } from '/@/api/demo/system'
-  import { createMenu } from '@/api/sys/menu'
+  import { createMenu, updateMenu } from '@/api/sys/menu'
 
   export default defineComponent({
     name: 'MenuDrawer',
@@ -26,6 +26,7 @@
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true)
+      const updatedRecordId = ref<number | null>(null)
       // 表单初始化 ,统一使用 hook(useForm)
       const [registerForm, { resetFields, setFieldsValue, updateSchema, validate }] = useForm({
         labelWidth: 100,
@@ -33,18 +34,21 @@
         showActionButtonGroup: false,
         baseColProps: { lg: 12, md: 24 },
       })
-
+      // init drawer component ,
       const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
+        // call function  will be called when click the edit button
         resetFields()
         setDrawerProps({ confirmLoading: false })
         isUpdate.value = !!data?.isUpdate
-
+        // 回显数据
         if (unref(isUpdate)) {
+          updatedRecordId.value = data.record.id
           setFieldsValue({
+            parentMenu: data.record.pid, // 对齐字段
             ...data.record,
           })
         }
-        // drawer 请求 API
+        // drawer 请求 API, 设置下拉
         const treeData = await getMenuList()
         updateSchema({
           field: 'parentMenu',
@@ -59,17 +63,23 @@
         try {
           const values = await validate()
           setDrawerProps({ confirmLoading: true })
-
           // pid 处理
           if (values.parentMenu) {
             values.pid = values.parentMenu
           } else {
             values.pid = 0
           }
-          values.status = +values.status
+          values.active = +values.active
           console.log(values)
           delete values.parentMenu
-          const res = await createMenu({ ...values })
+
+          let res
+          if (unref(isUpdate)) {
+            values.id = updatedRecordId.value
+            res = await updateMenu(values)
+          } else {
+            res = await createMenu({ ...values })
+          }
 
           console.log(res)
           if (res.code === 0) {

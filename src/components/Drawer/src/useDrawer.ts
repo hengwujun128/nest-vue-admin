@@ -101,7 +101,7 @@ export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
   const drawerInstanceRef = ref<Nullable<DrawerInstance>>(null)
   const currentInstance = getCurrentInstance()
   const uidRef = ref<number>(0)
-
+  //
   if (!getCurrentInstance()) {
     throw new Error('useDrawerInner() can only be used inside setup() or functional components!')
   }
@@ -126,8 +126,10 @@ export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
     currentInstance?.emit('register', modalInstance, uuid)
   }
 
+  //
   watchEffect(() => {
     const data = dataTransferRef[unref(uidRef)]
+    console.log('---watchEffect----', data)
     if (!data) return
     if (!callbackFn || !isFunction(callbackFn)) return
     nextTick(() => {

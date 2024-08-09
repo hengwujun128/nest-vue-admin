@@ -25,3 +25,8 @@ export const getActiveMenus = () => {
 export const createMenu = (params) => {
   return defHttp.post({ url: Api.CreateMenu, data: params })
 }
+
+// 编辑菜单
+export const updateMenu = (params) => {
+  return defHttp.put({ url: Api.CreateMenu, data: params })
+}

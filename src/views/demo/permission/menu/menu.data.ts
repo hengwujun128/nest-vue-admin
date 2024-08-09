@@ -58,7 +58,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '状态',
-    dataIndex: 'status',
+    dataIndex: 'active',
     width: 80,
     customRender: ({ record }) => {
       const status = record.active
@@ -156,14 +156,14 @@ export const formSchema: FormSchema[] = [
     },
   },
   {
-    field: 'status',
+    field: 'active',
     label: '状态',
     component: 'RadioButtonGroup',
-    defaultValue: '1',
+    defaultValue: 1,
     componentProps: {
       options: [
-        { label: '启用', value: '1' },
-        { label: '禁用', value: '0' },
+        { label: '启用', value: 1 },
+        { label: '禁用', value: 0 },
       ],
     },
   },
