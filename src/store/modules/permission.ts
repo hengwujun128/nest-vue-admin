@@ -15,7 +15,7 @@ import projectSetting from '/@/settings/projectSetting'
 import { PermissionModeEnum } from '/@/enums/appEnum'
 
 // 前端路由表
-import { asyncRoutes } from '/@/router/routes'
+// import { asyncRoutes } from '/@/router/routes'
 import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic'
 
 import { filter } from '/@/utils/helper/treeHelper'
@@ -195,7 +195,7 @@ export const usePermissionStore = defineStore({
             menuRoutes.push(menu)
           } else {
             const parentMenu = menuList.find((m) => m.id === menu.pid)
-            // 父菜单如果不存在,说明父菜单被禁用,则其下的子菜单也不显示
+            // 父菜单如果不存在,说明父菜单被禁用(API在查询时候直接过滤掉了),则其下的子菜单也不显示
             if (parentMenu) {
               if (!parentMenu.children) {
                 parentMenu.children = []

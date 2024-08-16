@@ -19,6 +19,11 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
   const { overrides = {} } = defineOptions
 
   return defineConfig(async ({ command, mode }) => {
+    console.log({
+      command,
+      mode,
+    })
+    // load all environment variables
     const root = process.cwd()
     const isBuild = command === 'build'
     const { VITE_PUBLIC_PATH, VITE_USE_MOCK, VITE_BUILD_COMPRESS, VITE_ENABLE_ANALYZE } = loadEnv(
@@ -101,6 +106,7 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
 
 async function createDefineData(root: string) {
   try {
+    // read package.json in root
     const pkgJson = await readPackageJSON(root)
     const { dependencies, devDependencies, name, version } = pkgJson
 

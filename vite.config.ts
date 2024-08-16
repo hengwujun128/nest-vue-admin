@@ -24,7 +24,7 @@ export default defineApplicationConfig({
           ws: true,
           rewrite: (path) => path.replace(new RegExp(`^/basic-api`), ''),
           // only https
-          // secure: false
+          secure: false,
         },
         '/upload': {
           target: 'http://localhost:3300/upload',

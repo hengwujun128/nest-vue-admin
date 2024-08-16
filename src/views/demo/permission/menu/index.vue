@@ -16,6 +16,7 @@
                 icon: 'clarity:note-edit-line',
                 onClick: handleEdit.bind(null, record),
               },
+              /*
               {
                 icon: 'ant-design:delete-outlined',
                 color: 'error',
@@ -25,6 +26,7 @@
                   confirm: handleDelete.bind(null, record),
                 },
               },
+              */
             ]"
           />
         </template>
