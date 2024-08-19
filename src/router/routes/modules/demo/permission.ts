@@ -24,6 +24,11 @@ const permission: AppRouteModule = {
         title: t('routes.demo.permission.menu'),
       },
     },
+    // {
+    //   path: 'role',
+    //   name: 'PermissionRole',
+    //   component: () => import('/@/views/permission/role/index.vue'),
+    // },
     {
       path: 'front',
       name: 'PermissionFrontDemo',

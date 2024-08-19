@@ -6,9 +6,10 @@ const commonConfig: (mode: string) => UserConfig = (mode) => ({
   server: {
     host: true,
   },
-  // 生产环境会 drop 掉 console 和 debugger
+  // 生产环境会 drop 掉 console 和 debugger(修改后,要重新启动)
   esbuild: {
     drop: mode === 'production' ? ['console', 'debugger'] : [],
+    // drop: ['console', 'debugger'],
   },
   build: {
     reportCompressedSize: false,

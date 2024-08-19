@@ -19,6 +19,7 @@ interface Options {
 }
 
 async function createPlugins({ isBuild, root, enableMock, compress, enableAnalyze }: Options) {
+  //定义默认的 plugin
   const vitePlugins: (PluginOption | PluginOption[])[] = [vue(), vueJsx()]
 
   const appConfigPlugin = await createAppConfigPlugin({ root, isBuild })

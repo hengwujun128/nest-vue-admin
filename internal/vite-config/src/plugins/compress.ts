@@ -19,8 +19,11 @@ export function configCompressPlugin({
   if (compressList.includes('gzip')) {
     plugins.push(
       compressPlugin({
+        algorithm: 'gzip',
+        threshold: 10240, // 超过 10kb 的才压缩
+        verbose: true, // 通过verbose禁止在控制台输出压缩结果
         ext: '.gz',
-        deleteOriginFile,
+        deleteOriginFile, // 是否删除源文件
       }),
     )
   }
