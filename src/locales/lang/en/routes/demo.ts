@@ -151,6 +151,8 @@ export default {
 
     menu: 'Menu Management',
     user: 'User Management',
+    role: 'Role Management',
+
     front: 'front-end',
     frontPage: 'Page',
     frontBtn: 'Button',
