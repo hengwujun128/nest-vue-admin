@@ -6,14 +6,13 @@ const commonConfig: (mode: string) => UserConfig = (mode) => ({
   server: {
     host: true,
   },
-  // 生产环境会 drop 掉 console 和 debugger(修改后,要重新启动)
   esbuild: {
     drop: mode === 'production' ? ['console', 'debugger'] : [],
     // drop: ['console', 'debugger'],
   },
   build: {
-    reportCompressedSize: false,
-    chunkSizeWarningLimit: 1500,
+    reportCompressedSize: false, // 压缩输出大型文件可能很慢,禁用此功能,提高构建性能
+    chunkSizeWarningLimit: 1500, //（以 kB 为单位）
     rollupOptions: {
       // TODO: Prevent memory overflow
       maxParallelFileOps: 3,

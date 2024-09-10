@@ -78,10 +78,17 @@ function defineApplicationConfig(defineOptions: DefineOptions = {}) {
       build: {
         target: 'es2015',
         cssTarget: 'chrome80',
+
+        // outDir: 'dist', //默认dist
+        // assetsDir: 'static', //指定生成静态资源的存放路径,默认assets
+        modulePreload: true,
+
+        //自定义底层的 Rollup 打包配置
         rollupOptions: {
           output: {
-            // 入口文件名
+            //  default "[name].js"
             entryFileNames: 'assets/[name].js',
+            // chunkFileNames: 'static/js/[name]-[hash].js', //  default: "[name]-[hash].js"
             manualChunks: {
               vue: ['vue', 'pinia', 'vue-router'],
               echarts: ['echarts'],

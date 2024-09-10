@@ -9,6 +9,7 @@ import appDarkModeToggle from './src/AppDarkModeToggle.vue'
 
 export { useAppProviderContext } from './src/useAppContext'
 
+// withInstall to make it as global component
 export const AppLogo = withInstall(appLogo)
 export const AppProvider = withInstall(appProvider)
 export const AppSearch = withInstall(appSearch)

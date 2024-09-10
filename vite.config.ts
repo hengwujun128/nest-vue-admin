@@ -4,6 +4,8 @@ import { defineApplicationConfig } from '@vben/vite-config'
 
 export default defineApplicationConfig({
   overrides: {
+    // only for dev mode
+    // 将那些具有许多内部模块的 ESM 依赖项转换为单个模块
     optimizeDeps: {
       include: [
         'echarts/core',

@@ -28,7 +28,7 @@ const generateRouteMap = (routes) => {
     if (route.children && route.children.length) {
       generateRouteMap(route.children)
     }
-    newRoutes[route.name] = route.component
+    // newRoutes[route.name] = route.component
   })
 }
 

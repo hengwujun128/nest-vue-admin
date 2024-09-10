@@ -20,10 +20,10 @@ export function configCompressPlugin({
     plugins.push(
       compressPlugin({
         algorithm: 'gzip',
-        threshold: 10240, // 超过 10kb 的才压缩
-        verbose: true, // 通过verbose禁止在控制台输出压缩结果
+        threshold: 10240, // It will be compressed if the volume is larger than threshold, the unit is b
+        verbose: true, // Whether to output the compressed result in the console
         ext: '.gz',
-        deleteOriginFile, // 是否删除源文件
+        deleteOriginFile, // Whether to delete the original file after compression
       }),
     )
   }
