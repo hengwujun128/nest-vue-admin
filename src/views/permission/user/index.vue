@@ -46,7 +46,7 @@
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer()
       const [registerTable, { reload }] = useTable({
-        title: '角色列表',
+        title: '用户列表',
         api: getRoleListByPage,
         columns,
         formConfig: {

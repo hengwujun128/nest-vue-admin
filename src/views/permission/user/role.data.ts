@@ -6,24 +6,35 @@ import { useMessage } from '/@/hooks/web/useMessage'
 
 export const columns: BasicColumn[] = [
   {
-    title: '角色名称',
-    dataIndex: 'roleName',
-    width: 200,
+    title: '用户ID',
+    dataIndex: 'id',
+    width: 100,
   },
   {
-    title: '角色值',
-    dataIndex: 'roleValue',
+    title: '用户名称',
+    dataIndex: 'username',
     width: 180,
   },
   {
-    title: '排序',
-    dataIndex: 'orderNo',
-    width: 50,
+    title: '头像',
+    dataIndex: 'avatar',
+    width: 200,
+  },
+  {
+    title: '角色',
+    dataIndex: 'roles',
+    width: 200,
+  },
+  {
+    title: '昵称',
+    dataIndex: 'nickname',
+    width: 200,
   },
   {
     title: '状态',
     dataIndex: 'status',
     width: 120,
+    // switch 组件通过 h() 函数渲染
     customRender: ({ record }) => {
       if (!Reflect.has(record, 'pendingStatus')) {
         record.pendingStatus = false
@@ -52,21 +63,27 @@ export const columns: BasicColumn[] = [
       })
     },
   },
-  {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    width: 180,
-  },
-  {
-    title: '备注',
-    dataIndex: 'remark',
-  },
+  // {
+  //   title: '创建时间',
+  //   dataIndex: 'createTime',
+  //   width: 180,
+  // },
+  // {
+  //   title: '备注',
+  //   dataIndex: 'remark',
+  // },
 ]
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'roleNme',
-    label: '角色名称',
+    field: 'id',
+    label: '用户 ID',
+    component: 'Input',
+    colProps: { span: 8 },
+  },
+  {
+    field: 'username',
+    label: '用户名称',
     component: 'Input',
     colProps: { span: 8 },
   },
@@ -86,16 +103,30 @@ export const searchFormSchema: FormSchema[] = [
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'roleName',
-    label: '角色名称',
+    field: 'userName',
+    label: '用户名称',
     required: true,
     component: 'Input',
   },
   {
-    field: 'roleValue',
-    label: '角色值',
+    field: 'nickName',
+    label: '昵称',
     required: true,
     component: 'Input',
+  },
+  {
+    field: 'avator',
+    label: '头像',
+    required: false,
+    component: 'Upload',
+  },
+  {
+    field: 'role',
+    label: '角色',
+    required: true,
+    // 通过 slot 控制
+    component: 'Input',
+    slot: 'menu',
   },
   {
     field: 'status',
@@ -109,15 +140,15 @@ export const formSchema: FormSchema[] = [
       ],
     },
   },
-  {
-    label: '备注',
-    field: 'remark',
-    component: 'InputTextArea',
-  },
-  {
-    label: ' ',
-    field: 'menu',
-    slot: 'menu',
-    component: 'Input',
-  },
+  // {
+  //   label: '备注',
+  //   field: 'remark',
+  //   component: 'InputTextArea',
+  // },
+  // {
+  //   label: ' ',
+  //   field: 'menu',
+  //   slot: 'menu',
+  //   component: 'Input',
+  // },
 ]

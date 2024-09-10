@@ -8,6 +8,7 @@
     @ok="handleSubmit"
   >
     <BasicForm @register="registerForm">
+      <!--  -->
       <template #menu="{ model, field }">
         <BasicTree
           v-model:value="model[field]"
@@ -15,7 +16,7 @@
           :fieldNames="{ title: 'menuName', key: 'id' }"
           checkable
           toolbar
-          title="菜单分配"
+          title="角色列表"
         />
       </template>
     </BasicForm>
@@ -34,13 +35,15 @@
   const isUpdate = ref(true)
   const treeData = ref<TreeItem[]>([])
 
+  //新增用户表单逻辑
   const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
     labelWidth: 90,
     baseColProps: { span: 24 },
-    schemas: formSchema,
+    schemas: formSchema, // 表单配置
     showActionButtonGroup: false,
   })
 
+  //新增用户表单逻辑
   const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
     resetFields()
     setDrawerProps({ confirmLoading: false })
