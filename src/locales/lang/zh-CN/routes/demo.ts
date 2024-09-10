@@ -145,6 +145,7 @@ export default {
     permission: '权限管理',
 
     menu: '菜单管理',
+    user: '用户管理',
     front: '基于前端权限',
     frontPage: '页面权限',
     frontBtn: '按钮权限',

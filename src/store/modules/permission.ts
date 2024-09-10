@@ -262,7 +262,7 @@ export const usePermissionStore = defineStore({
       }
 
       //
-      backendRouteList = asyncRoutes
+      // backendRouteList = asyncRoutes
 
       /* ------------------------------ 后端下发 routes 改造 end ------------------------------ */
       // TIPS:

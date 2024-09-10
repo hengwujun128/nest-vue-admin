@@ -1,9 +1,13 @@
 <template>
+  <!-- 页面主要是通过 table 和MenuDrawer 构成  -->
   <div>
-    <BasicTable @register="registerTable">
+    <!-- BasicTable 自带搜索功能 -->
+    <BasicTable @register="registerTable" @fetch-success="onFetchSuccess">
+      <!--  -->
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增角色 </a-button>
+        <a-button type="primary" @click="handleCreate"> 新增菜单 </a-button>
       </template>
+      <!--  -->
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
           <TableAction
@@ -12,6 +16,7 @@
                 icon: 'clarity:note-edit-line',
                 onClick: handleEdit.bind(null, record),
               },
+              /*
               {
                 icon: 'ant-design:delete-outlined',
                 color: 'error',
@@ -21,42 +26,50 @@
                   confirm: handleDelete.bind(null, record),
                 },
               },
+              */
             ]"
           />
         </template>
       </template>
     </BasicTable>
-    <RoleDrawer @register="registerDrawer" @success="handleSuccess" />
+    <!-- 封装新增 menu 组件 -->
+    <MenuDrawer @register="registerDrawer" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { defineComponent, nextTick } from 'vue'
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table'
-  import { getRoleListByPage } from '/@/api/demo/system'
+  import { getMenuList } from '/@/api/demo/system'
 
   import { useDrawer } from '/@/components/Drawer'
-  import RoleDrawer from './RoleDrawer.vue'
+  import MenuDrawer from './MenuDrawer.vue'
 
-  import { columns, searchFormSchema } from './role.data'
+  import { columns, searchFormSchema } from './menu.data'
 
   export default defineComponent({
-    name: 'RoleManagement',
-    components: { BasicTable, RoleDrawer, TableAction },
+    name: 'MenuManagement',
+    components: { BasicTable, MenuDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer()
-      const [registerTable, { reload }] = useTable({
-        title: '角色列表',
-        api: getRoleListByPage,
+
+      // hooks
+      const [registerTable, { reload, expandAll }] = useTable({
+        title: '菜单列表',
+        api: getMenuList,
         columns,
         formConfig: {
           labelWidth: 120,
           schemas: searchFormSchema,
         },
+        isTreeTable: true,
+        pagination: false,
+        striped: false,
         useSearchForm: true,
         showTableSetting: true,
         bordered: true,
         showIndexColumn: false,
+        canResize: false,
         actionColumn: {
           width: 80,
           title: '操作',
@@ -87,6 +100,11 @@
         reload()
       }
 
+      function onFetchSuccess() {
+        // 演示默认展开所有表项
+        nextTick(expandAll)
+      }
+
       return {
         registerTable,
         registerDrawer,
@@ -94,6 +112,7 @@
         handleEdit,
         handleDelete,
         handleSuccess,
+        onFetchSuccess,
       }
     },
   })

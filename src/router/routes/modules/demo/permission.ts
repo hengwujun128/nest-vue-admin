@@ -19,9 +19,17 @@ const permission: AppRouteModule = {
     {
       path: 'menu',
       name: 'PermissionMenu',
-      component: () => import('/@/views/demo/permission/menu/index.vue'),
+      component: () => import('/@/views/permission/menu/index.vue'),
       meta: {
         title: t('routes.demo.permission.menu'),
+      },
+    },
+    {
+      path: 'user',
+      name: 'PermissionUser',
+      component: () => import('/@/views/permission/user/index.vue'),
+      meta: {
+        title: t('routes.demo.permission.user'),
       },
     },
     // {
