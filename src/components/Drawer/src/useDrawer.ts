@@ -34,7 +34,7 @@ export function useDrawer(): UseDrawerReturnType {
   }
   const drawer = ref<DrawerInstance | null>(null)
   const loaded = ref<Nullable<boolean>>(false)
-  const uid = ref<number>(0)
+  const uid = ref<number>(0) // 每个实例id
 
   function register(drawerInstance: DrawerInstance, uuid: number) {
     isProdMode() &&
@@ -100,7 +100,7 @@ export function useDrawer(): UseDrawerReturnType {
 export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
   const drawerInstanceRef = ref<Nullable<DrawerInstance>>(null)
   const currentInstance = getCurrentInstance()
-  const uidRef = ref<number>(0)
+  const uidRef = ref<number>(0) // ref
   //
   if (!getCurrentInstance()) {
     throw new Error('useDrawerInner() can only be used inside setup() or functional components!')
@@ -128,8 +128,11 @@ export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
 
   //
   watchEffect(() => {
+    // dataTransferRef 是个对象
     const data = dataTransferRef[unref(uidRef)]
-    console.log('---watchEffect----', data)
+    console.log({
+      dataTransferRef: data,
+    })
     if (!data) return
     if (!callbackFn || !isFunction(callbackFn)) return
     nextTick(() => {

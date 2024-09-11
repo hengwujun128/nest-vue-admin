@@ -24,9 +24,12 @@
 </template>
 <script lang="ts" setup>
   import { ref, computed, unref } from 'vue'
+  //
   import { BasicForm, useForm } from '/@/components/Form/index'
   import { formSchema } from './role.data'
+  // component+ hooks 相结合
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer'
+
   import { BasicTree, TreeItem } from '/@/components/Tree'
 
   import { getMenuList } from '/@/api/demo/system'
@@ -44,6 +47,7 @@
   })
 
   //新增用户表单逻辑
+  // registerDrawer 也是封装到 hooks 中的方法, 作为外部的事件处理器
   const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
     resetFields()
     setDrawerProps({ confirmLoading: false })

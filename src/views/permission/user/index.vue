@@ -45,6 +45,7 @@
     components: { BasicTable, RoleDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer()
+      //  useTable hook 封装了 table 的相关操作
       const [registerTable, { reload }] = useTable({
         title: '用户列表',
         api: getRoleListByPage,
