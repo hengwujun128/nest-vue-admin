@@ -9,6 +9,14 @@ enum Api {
   GetUserInfo = '/user/info',
   GetPermCode = '/getPermCode',
   TestRetry = '/testRetry',
+  User = '/user',
+}
+
+/**
+ * @description: getUserInfo
+ */
+export function getUserList() {
+  return defHttp.get<GetUserInfoModel>({ url: Api.User }, { errorMessageMode: 'none' })
 }
 
 /**

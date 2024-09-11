@@ -33,7 +33,8 @@
   import { defineComponent } from 'vue'
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table'
-  import { getRoleListByPage } from '/@/api/demo/system'
+  // import { getRoleListByPage } from '/@/api/demo/system'
+  import { getUserList } from '/@/api/sys/user'
 
   import { useDrawer } from '/@/components/Drawer'
   import RoleDrawer from './RoleDrawer.vue'
@@ -48,7 +49,7 @@
       //  useTable hook 封装了 table 的相关操作
       const [registerTable, { reload }] = useTable({
         title: '用户列表',
-        api: getRoleListByPage,
+        api: getUserList,
         columns,
         formConfig: {
           labelWidth: 120,
