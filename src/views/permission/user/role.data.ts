@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { BasicColumn, FormSchema } from '/@/components/Table'
 import { h } from 'vue'
 import { Switch } from 'ant-design-vue'
+
+// @ts-ignore
 import { setRoleStatus } from '/@/api/demo/system'
+// @ts-ignore
 import { useMessage } from '/@/hooks/web/useMessage'
 
 export const columns: BasicColumn[] = [
@@ -24,6 +28,10 @@ export const columns: BasicColumn[] = [
     title: '角色',
     dataIndex: 'roles',
     width: 200,
+    customRender: ({ record }) => {
+      const roles = JSON.parse(record.roles)
+      return h('div', {}, roles.join(', '))
+    },
   },
   {
     title: '昵称',
@@ -40,26 +48,26 @@ export const columns: BasicColumn[] = [
         record.pendingStatus = false
       }
       return h(Switch, {
-        checked: record.status === '1',
-        checkedChildren: '停用',
-        unCheckedChildren: '启用',
+        checked: Number(record.active) === 1,
+        checkedChildren: '已启用',
+        unCheckedChildren: '已停用',
         loading: record.pendingStatus,
-        onChange(checked: boolean) {
-          record.pendingStatus = true
-          const newStatus = checked ? '1' : '0'
-          const { createMessage } = useMessage()
-          setRoleStatus(record.id, newStatus)
-            .then(() => {
-              record.status = newStatus
-              createMessage.success(`已成功修改角色状态`)
-            })
-            .catch(() => {
-              createMessage.error('修改角色状态失败')
-            })
-            .finally(() => {
-              record.pendingStatus = false
-            })
-        },
+        // onChange(checked: boolean) {
+        //   record.pendingStatus = true
+        //   const newStatus = checked ? 1 : 0
+        //   const { createMessage } = useMessage()
+        //   setRoleStatus(record.id, newStatus)
+        //     .then(() => {
+        //       record.status = newStatus
+        //       createMessage.success(`已成功修改角色状态`)
+        //     })
+        //     .catch(() => {
+        //       createMessage.error('修改角色状态失败')
+        //     })
+        //     .finally(() => {
+        //       record.pendingStatus = false
+        //     })
+        // },
       })
     },
   },
