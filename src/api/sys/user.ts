@@ -15,8 +15,19 @@ enum Api {
 /**
  * @description: getUserInfo
  */
-export function getUserList() {
-  return defHttp.get<GetUserInfoModel>({ url: Api.User }, { errorMessageMode: 'none' })
+export function getUserList(params) {
+  console.log('用户列表查询参数', params)
+  return defHttp.get<GetUserInfoModel>({ url: Api.User, params: params })
+}
+
+export function addUser(data): Promise<any> {
+  console.log('新增用户参数', data)
+  return defHttp.post<GetUserInfoModel>({ url: Api.User, data })
+}
+
+export function editUser(data): Promise<any> {
+  console.log('编辑用户参数', data)
+  return defHttp.put<GetUserInfoModel>({ url: Api.User, data })
 }
 
 /**

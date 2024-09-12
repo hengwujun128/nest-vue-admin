@@ -49,11 +49,12 @@
       //  useTable hook 封装了 table 的相关操作
       const [registerTable, { reload }] = useTable({
         title: '用户列表',
-        api: getUserList,
+        api: getUserList, // NOTE:这里假定后端数据返回符合格式,不需要进行处理
         columns,
+        // 查询 form 表单
         formConfig: {
           labelWidth: 120,
-          schemas: searchFormSchema,
+          schemas: searchFormSchema, // form 是通过 FormScheme 进行配置
         },
         useSearchForm: true,
         showTableSetting: true,

@@ -29,7 +29,7 @@ export const columns: BasicColumn[] = [
     dataIndex: 'roles',
     width: 200,
     customRender: ({ record }) => {
-      const roles = JSON.parse(record.roles)
+      const roles = JSON.parse(record.roles || [])
       return h('div', {}, roles.join(', '))
     },
   },
@@ -40,7 +40,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '状态',
-    dataIndex: 'status',
+    dataIndex: 'active',
     width: 120,
     // switch 组件通过 h() 函数渲染
     customRender: ({ record }) => {
@@ -87,37 +87,43 @@ export const searchFormSchema: FormSchema[] = [
     field: 'id',
     label: '用户 ID',
     component: 'Input',
-    colProps: { span: 8 },
+    colProps: { span: 6 },
   },
   {
     field: 'username',
     label: '用户名称',
     component: 'Input',
-    colProps: { span: 8 },
+    colProps: { span: 6 },
   },
   {
-    field: 'status',
+    field: 'active',
     label: '状态',
     component: 'Select',
     componentProps: {
       options: [
-        { label: '启用', value: '1' },
-        { label: '停用', value: '0' },
+        { label: '启用', value: 1 },
+        { label: '停用', value: 0 },
       ],
     },
-    colProps: { span: 8 },
+    colProps: { span: 6 },
   },
 ]
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'userName',
+    field: 'username',
     label: '用户名称',
     required: true,
     component: 'Input',
   },
   {
-    field: 'nickName',
+    field: 'password',
+    label: '密码',
+    required: true,
+    component: 'InputPassword',
+  },
+  {
+    field: 'nickname',
     label: '昵称',
     required: true,
     component: 'Input',
@@ -129,22 +135,22 @@ export const formSchema: FormSchema[] = [
     component: 'Upload',
   },
   {
-    field: 'role',
+    field: 'roles',
     label: '角色',
-    required: true,
+    required: false,
     // 通过 slot 控制
     component: 'Input',
     slot: 'menu',
   },
   {
-    field: 'status',
+    field: 'active',
     label: '状态',
     component: 'RadioButtonGroup',
-    defaultValue: '0',
+    defaultValue: 1,
     componentProps: {
       options: [
-        { label: '启用', value: '1' },
-        { label: '停用', value: '0' },
+        { label: '启用', value: 1 },
+        { label: '停用', value: 0 },
       ],
     },
   },

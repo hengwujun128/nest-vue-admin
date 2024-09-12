@@ -33,16 +33,19 @@
   import { BasicTree, TreeItem } from '/@/components/Tree'
 
   import { getMenuList } from '/@/api/demo/system'
+  import { addUser, editUser } from '/@/api/sys/user'
 
   const emit = defineEmits(['success', 'register'])
   const isUpdate = ref(true)
+  const updatedRecordId = ref<number | null>(null)
+
   const treeData = ref<TreeItem[]>([])
 
   //新增用户表单逻辑
-  const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
+  const [registerForm, { resetFields, setFieldsValue, getFieldsValue, validate }] = useForm({
     labelWidth: 90,
-    baseColProps: { span: 24 },
-    schemas: formSchema, // 表单配置
+    baseColProps: { span: 20 },
+    schemas: formSchema, // 新增用户|编辑用户表单配置
     showActionButtonGroup: false,
   })
 
@@ -56,8 +59,9 @@
       treeData.value = (await getMenuList()) as any as TreeItem[]
     }
     isUpdate.value = !!data?.isUpdate
-
+    // 编辑操作的回填数据
     if (unref(isUpdate)) {
+      updatedRecordId.value = data.record.id
       setFieldsValue({
         ...data.record,
       })
@@ -70,10 +74,29 @@
     try {
       const values = await validate()
       setDrawerProps({ confirmLoading: true })
-      // TODO custom api
-      console.log(values)
-      closeDrawer()
-      emit('success')
+      const params: any = {}
+      params.username = values.username
+      params.password = values.password
+      params.nickname = values.nickname
+      params.roles = values.roles || '[]'
+      params.avatar = values.avatar || ''
+      params.active = values.active
+      const update = unref(isUpdate)
+      if (update) {
+        params.id = updatedRecordId.value
+
+        // 因为数据库中 username 是唯一的,所以可以使用 username 作为更新条件
+        console.log({ '编辑 user': getFieldsValue() })
+        editUser(params).then(() => {
+          closeDrawer()
+          emit('success')
+        })
+      } else {
+        addUser(params).then(() => {
+          closeDrawer()
+          emit('success')
+        })
+      }
     } finally {
       setDrawerProps({ confirmLoading: false })
     }
