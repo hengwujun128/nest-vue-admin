@@ -30,6 +30,11 @@ export function editUser(data): Promise<any> {
   return defHttp.put<GetUserInfoModel>({ url: Api.User, data }, { successMessageMode: 'message' })
 }
 
+export function deleteUser(id): Promise<any> {
+  console.log('删除用户参数', id)
+  return defHttp.delete<GetUserInfoModel>({ url: `/user/${id}` }, { successMessageMode: 'message' })
+}
+
 /**
  * @description: user login api
  */
