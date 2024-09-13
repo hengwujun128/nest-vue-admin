@@ -35,6 +35,9 @@
   import { getMenuList } from '/@/api/demo/system'
   import { addUser, editUser } from '/@/api/sys/user'
 
+  // import { useMessage } from '/@/hooks/web/useMessage'
+
+  // const { createMessage } = useMessage()
   const emit = defineEmits(['success', 'register'])
   const isUpdate = ref(true)
   const updatedRecordId = ref<number | null>(null)
@@ -42,16 +45,23 @@
   const treeData = ref<TreeItem[]>([])
 
   //新增用户表单逻辑
-  const [registerForm, { resetFields, setFieldsValue, getFieldsValue, validate }] = useForm({
-    labelWidth: 90,
-    baseColProps: { span: 20 },
-    schemas: formSchema, // 新增用户|编辑用户表单配置
-    showActionButtonGroup: false,
-  })
+  const [registerForm, { resetSchema, resetFields, setFieldsValue, getFieldsValue, validate }] =
+    useForm({
+      labelWidth: 90,
+      baseColProps: { span: 20 },
+      schemas: formSchema, // 新增用户|编辑用户表单配置
+      showActionButtonGroup: false,
+    })
 
   //新增用户表单逻辑
   // registerDrawer 也是封装到 hooks 中的方法, 作为外部的事件处理器
   const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
+    // NOTE:编辑用户不支持修改密码,因此不需要密码字段
+    const updateFormSchema = formSchema.filter((item) => {
+      return item.field !== 'password'
+    })
+    resetSchema(updateFormSchema)
+
     resetFields()
     setDrawerProps({ confirmLoading: false })
     // 需要在setFieldsValue之前先填充treeData，否则Tree组件可能会报key not exist警告
@@ -79,7 +89,7 @@
       params.password = values.password
       params.nickname = values.nickname
       params.roles = values.roles || '[]'
-      params.avatar = values.avatar || ''
+      params.avatar = values.avatar || 'https://vuejs.org/viteconf.svg'
       params.active = values.active
       const update = unref(isUpdate)
       if (update) {
@@ -93,6 +103,7 @@
         })
       } else {
         addUser(params).then(() => {
+          // createMessage.success(`新增用户成功`)  // 拦截器统一显示
           closeDrawer()
           emit('success')
         })

@@ -22,12 +22,12 @@ export function getUserList(params) {
 
 export function addUser(data): Promise<any> {
   console.log('新增用户参数', data)
-  return defHttp.post<GetUserInfoModel>({ url: Api.User, data })
+  return defHttp.post<GetUserInfoModel>({ url: Api.User, data }, { successMessageMode: 'message' })
 }
 
 export function editUser(data): Promise<any> {
   console.log('编辑用户参数', data)
-  return defHttp.put<GetUserInfoModel>({ url: Api.User, data })
+  return defHttp.put<GetUserInfoModel>({ url: Api.User, data }, { successMessageMode: 'message' })
 }
 
 /**
