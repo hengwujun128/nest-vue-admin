@@ -10,6 +10,7 @@ enum Api {
   GetPermCode = '/getPermCode',
   TestRetry = '/testRetry',
   User = '/user',
+  Role = '/role',
 }
 
 /**
@@ -33,6 +34,11 @@ export function editUser(data): Promise<any> {
 export function deleteUser(id): Promise<any> {
   console.log('删除用户参数', id)
   return defHttp.delete<GetUserInfoModel>({ url: `/user/${id}` }, { successMessageMode: 'message' })
+}
+
+export function getRoleList(params) {
+  console.log('用户列表查询参数', params)
+  return defHttp.get({ url: Api.Role, params })
 }
 
 /**
