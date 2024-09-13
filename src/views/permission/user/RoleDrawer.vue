@@ -13,7 +13,7 @@
         <BasicTree
           v-model:value="model[field]"
           :treeData="treeData"
-          :fieldNames="{ title: 'menuName', key: 'id' }"
+          :fieldNames="{ title: 'remark', key: 'id' }"
           checkable
           toolbar
           title="角色列表"
@@ -32,8 +32,8 @@
 
   import { BasicTree, TreeItem } from '/@/components/Tree'
 
-  import { getMenuList } from '/@/api/demo/system'
-  import { addUser, editUser } from '/@/api/sys/user'
+  // import { getMenuList } from '/@/api/demo/system'
+  import { addUser, editUser, getRoleList } from '/@/api/sys/user'
 
   // import { useMessage } from '/@/hooks/web/useMessage'
 
@@ -66,7 +66,8 @@
     setDrawerProps({ confirmLoading: false })
     // 需要在setFieldsValue之前先填充treeData，否则Tree组件可能会报key not exist警告
     if (unref(treeData).length === 0) {
-      treeData.value = (await getMenuList()) as any as TreeItem[]
+      // 获取角色列表
+      treeData.value = await getRoleList()
     }
     isUpdate.value = !!data?.isUpdate
     // 编辑操作的回填数据
@@ -88,7 +89,13 @@
       params.username = values.username
       params.password = values.password
       params.nickname = values.nickname
-      params.roles = values.roles || '[]'
+      // params.roles = values.roles || '[]'
+      params.roles = JSON.stringify(
+        values.roles.map((role) => {
+          const roleItem = unref(treeData).find((item) => item.id === role)
+          return roleItem?.name
+        }),
+      )
       params.avatar = values.avatar || 'https://vuejs.org/viteconf.svg'
       params.active = values.active
       const update = unref(isUpdate)

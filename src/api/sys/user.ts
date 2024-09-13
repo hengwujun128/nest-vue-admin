@@ -36,7 +36,7 @@ export function deleteUser(id): Promise<any> {
   return defHttp.delete<GetUserInfoModel>({ url: `/user/${id}` }, { successMessageMode: 'message' })
 }
 
-export function getRoleList(params) {
+export function getRoleList(params = {}) {
   console.log('用户列表查询参数', params)
   return defHttp.get({ url: Api.Role, params })
 }
