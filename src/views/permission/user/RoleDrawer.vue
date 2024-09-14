@@ -45,23 +45,26 @@
   const treeData = ref<TreeItem[]>([])
 
   //新增用户表单逻辑
-  const [registerForm, { resetSchema, resetFields, setFieldsValue, getFieldsValue, validate }] =
-    useForm({
-      labelWidth: 90,
-      baseColProps: { span: 20 },
-      schemas: formSchema, // 新增用户|编辑用户表单配置
-      showActionButtonGroup: false,
-    })
+  const [
+    registerForm,
+    { resetFields, removeSchemaByField, setFieldsValue, getFieldsValue, validate },
+  ] = useForm({
+    labelWidth: 90,
+    baseColProps: { span: 20 },
+    schemas: formSchema, // 新增用户|编辑用户表单配置
+    showActionButtonGroup: false,
+  })
 
-  //新增用户表单逻辑
+  //编辑用户表单逻辑
   // registerDrawer 也是封装到 hooks 中的方法, 作为外部的事件处理器
   const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
     // NOTE:编辑用户不支持修改密码,因此不需要密码字段
-    const updateFormSchema = formSchema.filter((item) => {
-      return item.field !== 'password'
-    })
-    resetSchema(updateFormSchema)
+    // const updateFormSchema = formSchema.filter((item) => {
+    //   return item.field !== 'password'
+    // })
+    // resetSchema(updateFormSchema)
 
+    removeSchemaByField('password') // 编辑时候不需要展示 password 字段
     resetFields()
     setDrawerProps({ confirmLoading: false })
     // 需要在setFieldsValue之前先填充treeData，否则Tree组件可能会报key not exist警告
@@ -70,11 +73,21 @@
       treeData.value = await getRoleList()
     }
     isUpdate.value = !!data?.isUpdate
-    // 编辑操作的回填数据
+    //  NOTE: 编辑操作的回填数据,处理 treeData 反选问题, 注意不能直接修改data.record.roles 的数据结构, 因为 table,form 共用
     if (unref(isUpdate)) {
       updatedRecordId.value = data.record.id
+      let updatedRoles = []
+      if (data.record.roles) {
+        const roles = JSON.parse(data.record.roles)
+        updatedRoles = roles.map((role) => {
+          const roleItem = treeData.value.find((item) => item.name === role)
+          return roleItem?.id
+        })
+        console.log('------编辑回填数据------', data.record)
+      }
       setFieldsValue({
         ...data.record,
+        roles: updatedRoles,
       })
     }
   })
