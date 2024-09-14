@@ -37,8 +37,23 @@ export function deleteUser(id): Promise<any> {
 }
 
 export function getRoleList(params = {}) {
-  console.log('用户列表查询参数', params)
+  console.log('角色列表查询参数', params)
   return defHttp.get({ url: Api.Role, params })
+}
+
+export function addRole(data): Promise<any> {
+  console.log('新增角色参数', data)
+  return defHttp.post({ url: Api.Role, data }, { successMessageMode: 'message' })
+}
+
+export function editRole(data): Promise<any> {
+  console.log('编辑角色参数', data)
+  return defHttp.put({ url: Api.Role, data }, { successMessageMode: 'message' })
+}
+
+export function deleteRole(id): Promise<any> {
+  console.log('删除角色参数', id)
+  return defHttp.delete({ url: `/role/${id}` }, { successMessageMode: 'message' })
 }
 
 /**

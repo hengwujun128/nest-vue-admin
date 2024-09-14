@@ -34,7 +34,7 @@
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table'
   // import { getRoleListByPage } from '/@/api/demo/system'
-  import { getRoleList } from '/@/api/sys/user'
+  import { getRoleList, deleteRole } from '/@/api/sys/user'
 
   import { useDrawer } from '/@/components/Drawer'
   import RoleDrawer from './RoleDrawer.vue'
@@ -81,7 +81,9 @@
       }
 
       function handleDelete(record: Recordable) {
-        console.log(record)
+        deleteRole(record.id).then(() => {
+          reload()
+        })
       }
 
       function handleSuccess() {
