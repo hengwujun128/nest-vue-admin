@@ -1,3 +1,4 @@
+import { unref, Ref } from 'vue'
 import { BasicColumn, FormSchema } from '/@/components/Table'
 
 export const columns: BasicColumn[] = [
@@ -48,24 +49,7 @@ export const formSchema: FormSchema[] = [
     required: true,
     component: 'Input',
   },
-  // {
-  //   field: 'roleValue',
-  //   label: '角色值',
-  //   required: true,
-  //   component: 'Input',
-  // },
-  // {
-  //   field: 'status',
-  //   label: '状态',
-  //   component: 'RadioButtonGroup',
-  //   defaultValue: '0',
-  //   componentProps: {
-  //     options: [
-  //       { label: '启用', value: '1' },
-  //       { label: '停用', value: '0' },
-  //     ],
-  //   },
-  // },
+
   {
     label: '备注',
     field: 'remark',
@@ -78,3 +62,36 @@ export const formSchema: FormSchema[] = [
     component: 'Input',
   },
 ]
+
+// refactor: formSchema 改造, 由数组改造成函数
+export function getFormSchemas(isUpdate: Ref<boolean>): FormSchema[] {
+  return [
+    {
+      field: 'name',
+      label: '角色名称',
+      required: true,
+      component: 'Input',
+      // TIPS: 控制 组件是否显示
+      ifShow: (value) => {
+        console.log(value)
+        return !unref(isUpdate)
+      },
+      // TIPS: 表单字段禁用时，控制组件是否禁用
+      componentProps: {
+        disabled: unref(isUpdate),
+      },
+    },
+
+    {
+      label: '备注',
+      field: 'remark',
+      component: 'InputTextArea',
+    },
+    {
+      label: ' ',
+      field: 'menu',
+      slot: 'menu',
+      component: 'Input',
+    },
+  ]
+}
