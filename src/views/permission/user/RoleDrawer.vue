@@ -47,7 +47,7 @@
   //新增用户表单逻辑
   const [
     registerForm,
-    { resetFields, removeSchemaByField, setFieldsValue, getFieldsValue, validate },
+    { resetFields, removeSchemaByField, setFieldsValue, getFieldsValue, validate, updateSchema },
   ] = useForm({
     labelWidth: 90,
     baseColProps: { span: 20 },
@@ -85,9 +85,22 @@
         })
         console.log('------编辑回填数据------', data.record)
       }
+      updateSchema({
+        field: 'username',
+        componentProps: {
+          disabled: true,
+        },
+      })
       setFieldsValue({
         ...data.record,
         roles: updatedRoles,
+      })
+    } else {
+      updateSchema({
+        field: 'username',
+        componentProps: {
+          disabled: false,
+        },
       })
     }
   })
