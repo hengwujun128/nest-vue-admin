@@ -37,7 +37,7 @@ export const columns: BasicColumn[] = [
   {
     title: '元数据',
     dataIndex: 'meta',
-    width: 100,
+    // width: 100,
     customRender({ text }) {
       return h(
         Tooltip,
@@ -46,7 +46,8 @@ export const columns: BasicColumn[] = [
           placement: 'top',
         },
         () => {
-          return text.slice(0, 10) + '...'
+          // return text.slice(0, 10) + '...'
+          return text
         },
       )
     },

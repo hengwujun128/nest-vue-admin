@@ -11,6 +11,7 @@ enum Api {
   TestRetry = '/testRetry',
   User = '/user',
   Role = '/role',
+  RoleMenu = '/role/role_menu',
 }
 
 /**
@@ -54,6 +55,19 @@ export function editRole(data): Promise<any> {
 export function deleteRole(id): Promise<any> {
   console.log('删除角色参数', id)
   return defHttp.delete({ url: `/role/${id}` }, { successMessageMode: 'message' })
+}
+
+// 获取角色菜单接口
+// 该接口也是前端权限控制的依据，根据当前用户的角色，展示对应的菜单
+export const getRoleMenuByRoleId = (roleId) => {
+  console.log('根据角色ID 获取角色菜单', roleId)
+  return defHttp.get({ url: Api.RoleMenu, params: { roleId: roleId } })
+}
+
+// 删除角色菜单
+export const deleteRoleMenuByRoleId = (roleId) => {
+  console.log('删除角色菜单', roleId)
+  return defHttp.delete({ url: Api.RoleMenu, data: { roleId: roleId } })
 }
 
 /**
