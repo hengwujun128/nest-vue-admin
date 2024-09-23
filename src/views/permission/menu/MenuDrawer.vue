@@ -107,13 +107,16 @@
 
           if (unref(isUpdate)) {
             values.id = updatedRecordId.value
-            const canUpdate = checkAllChildrenMenuDisabled(values)
-            console.log('canUpdate----', canUpdate)
+            // 关闭菜单状态要做校验
+            let canUpdate = true
+            if (values.active === 0) {
+              canUpdate = checkAllChildrenMenuDisabled(values)
+              console.log('canUpdate----', canUpdate)
+            }
             if (canUpdate) {
               await updateMenu(values)
             } else {
               message.warning('请先禁用所有子菜单')
-              // createMessage.error('请先禁用所有子菜单')
             }
           } else {
             await createMenu({ ...values })

@@ -30,7 +30,7 @@
 
   import { getActiveMenus } from '/@/api/sys/menu'
 
-  import { addRole, editRole, getRoleMenuByRoleId } from '/@/api/sys/user'
+  import { addRole, editRole, getRoleMenusByRoleId } from '/@/api/sys/user'
 
   const emit = defineEmits(['success', 'register'])
   const isUpdate = ref(true)
@@ -65,9 +65,7 @@
       })
       // NOTE: 编辑的时候,要回填菜单,根据用户的角色去获取角色对应的菜单
       const roleId = data.record.id
-      const menus = (await getRoleMenuByRoleId(roleId)) || []
-      // eslint-disable-next-line no-debugger
-      debugger
+      const menus = (await getRoleMenusByRoleId(roleId)) || []
       data.record.menu = menus.map((item) => {
         return item.menuId
       })

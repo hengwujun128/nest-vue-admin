@@ -59,7 +59,7 @@ export function deleteRole(id): Promise<any> {
 
 // 获取角色菜单接口
 // 该接口也是前端权限控制的依据，根据当前用户的角色，展示对应的菜单
-export const getRoleMenuByRoleId = (roleId) => {
+export const getRoleMenusByRoleId = (roleId) => {
   console.log('根据角色ID 获取角色菜单', roleId)
   return defHttp.get({ url: Api.RoleMenu, params: { roleId: roleId } })
 }
