@@ -57,7 +57,7 @@
     }
   })
 
-  const getTitle = computed(() => (!unref(isUpdate) ? '新增角色' : '编辑角色'))
+  const getTitle = computed(() => (!unref(isUpdate) ? '新增权限' : '编辑权限'))
 
   async function handleSubmit() {
     try {

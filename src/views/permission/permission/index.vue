@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增角色 </a-button>
+        <a-button type="primary" @click="handleCreate"> 新增权限 </a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -46,7 +46,7 @@
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer()
       const [registerTable, { reload }] = useTable({
-        title: '角色列表',
+        title: '权限列表',
         api: getRoleListByPage,
         columns,
         formConfig: {
