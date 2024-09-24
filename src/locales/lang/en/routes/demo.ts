@@ -147,6 +147,7 @@ export default {
     listSearch: 'Search list',
   },
   permission: {
+    sys_permission: 'System Permissions',
     permission: 'Permission',
 
     menu: 'Menu Management',

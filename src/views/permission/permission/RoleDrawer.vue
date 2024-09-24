@@ -36,7 +36,7 @@
   const treeData = ref<TreeItem[]>([])
   const updatedRecordId = ref<null | number>(null)
 
-  const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
+  const [registerForm, { resetFields, setFieldsValue, updateSchema, validate }] = useForm({
     labelWidth: 90,
     baseColProps: { span: 24 },
     schemas: formSchema,
@@ -54,6 +54,14 @@
 
     if (unref(isUpdate)) {
       updatedRecordId.value = data.record.id
+      //NOTE: 编辑时候设置表单字段禁用,禁止修改
+      updateSchema({
+        field: 'key',
+        componentProps: {
+          disabled: true,
+        },
+      })
+
       setFieldsValue({
         ...data.record,
       })

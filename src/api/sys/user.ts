@@ -56,6 +56,11 @@ export const editPermission = (data = {}) => {
   return defHttp.put({ url: Api.Permission, data }, { successMessageMode: 'message' })
 }
 
+export const deletePermission = (id) => {
+  console.log('删除角色参数', id)
+  return defHttp.delete({ url: `${Api.Permission}/${id}` }, { successMessageMode: 'message' })
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                    角色相关                                 */
 /* -------------------------------------------------------------------------- */
