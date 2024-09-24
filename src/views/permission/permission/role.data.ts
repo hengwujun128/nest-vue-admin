@@ -8,26 +8,27 @@ export const columns: BasicColumn[] = [
   {
     title: '权限ID',
     dataIndex: 'id',
-    width: 200,
+    width: 100,
   },
   {
     title: '权限key',
     dataIndex: 'key',
-    width: 180,
+    // width: 180,
   },
   {
     title: '权限名称',
     dataIndex: 'name',
-    width: 50,
+    // width: 200,
+  },
+
+  {
+    title: '备注',
+    dataIndex: 'remark',
   },
   {
     title: '创建时间',
     dataIndex: 'createTime',
     width: 180,
-  },
-  {
-    title: '备注',
-    dataIndex: 'remark',
   },
 ]
 

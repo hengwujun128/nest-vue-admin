@@ -12,6 +12,7 @@ enum Api {
   User = '/user',
   Role = '/role',
   RoleMenu = '/role/role_menu',
+  Permission = '/permission',
 }
 
 /**
@@ -36,6 +37,19 @@ export function deleteUser(id): Promise<any> {
   console.log('删除用户参数', id)
   return defHttp.delete<GetUserInfoModel>({ url: `/user/${id}` }, { successMessageMode: 'message' })
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                    权限先关                                  */
+/* -------------------------------------------------------------------------- */
+
+export const getPermissionList = (params = {}) => {
+  console.log('权限列表查询参数', params)
+  return defHttp.get({ url: Api.Permission, params })
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                    角色相关                                 */
+/* -------------------------------------------------------------------------- */
 
 export function getRoleList(params = {}) {
   console.log('角色列表查询参数', params)
