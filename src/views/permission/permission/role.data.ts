@@ -34,7 +34,7 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'name',
+    field: 'key',
     label: '权限名称',
     component: 'Input',
     colProps: { span: 8 },

@@ -46,6 +46,15 @@ export const getPermissionList = (params = {}) => {
   console.log('权限列表查询参数', params)
   return defHttp.get({ url: Api.Permission, params })
 }
+export const addPermission = (data = {}) => {
+  console.log('新增权限参数', data)
+  return defHttp.post({ url: Api.Permission, data }, { successMessageMode: 'message' })
+}
+
+export const editPermission = (data = {}) => {
+  console.log('编辑权限参数', data)
+  return defHttp.put({ url: Api.Permission, data }, { successMessageMode: 'message' })
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                    角色相关                                 */

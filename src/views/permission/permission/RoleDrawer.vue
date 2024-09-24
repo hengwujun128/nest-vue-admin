@@ -29,10 +29,12 @@
   import { BasicTree, TreeItem } from '/@/components/Tree'
 
   import { getMenuList } from '/@/api/demo/system'
+  import { addPermission, editPermission } from '/@/api/sys/user'
 
   const emit = defineEmits(['success', 'register'])
   const isUpdate = ref(true)
   const treeData = ref<TreeItem[]>([])
+  const updatedRecordId = ref<null | number>(null)
 
   const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
     labelWidth: 90,
@@ -51,6 +53,7 @@
     isUpdate.value = !!data?.isUpdate
 
     if (unref(isUpdate)) {
+      updatedRecordId.value = data.record.id
       setFieldsValue({
         ...data.record,
       })
@@ -63,7 +66,16 @@
     try {
       const values = await validate()
       setDrawerProps({ confirmLoading: true })
+      const params = { ...values }
+
       // TODO custom api
+      if (unref(isUpdate)) {
+        params.id = updatedRecordId.value
+        console.log('update', params)
+        await editPermission(params)
+      } else {
+        await addPermission(params)
+      }
       console.log(values)
       closeDrawer()
       emit('success')
