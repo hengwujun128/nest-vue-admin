@@ -18,6 +18,16 @@
           title="菜单分配"
         />
       </template>
+      <template #permission="{ model, field }">
+        <BasicTree
+          v-model:value="model[field]"
+          :treeData="treeDataForPermissions"
+          :fieldNames="{ title: 'name', key: 'id' }"
+          checkable
+          toolbar
+          title="权限分配"
+        />
+      </template>
     </BasicForm>
   </BasicDrawer>
 </template>
@@ -30,12 +40,19 @@
 
   import { getActiveMenus } from '/@/api/sys/menu'
 
-  import { addRole, editRole, getRoleMenusByRoleId } from '/@/api/sys/user'
+  import {
+    addRole,
+    editRole,
+    getRoleMenusByRoleId,
+    getPermissionsByRoleId,
+    getPermissionList,
+  } from '/@/api/sys/user'
 
   const emit = defineEmits(['success', 'register'])
   const isUpdate = ref(true)
   const updatedRecordId = ref<null | number>(null)
   const treeData = ref<TreeItem[]>([])
+  const treeDataForPermissions = ref<TreeItem[]>([])
 
   const [registerForm, { resetFields, setFieldsValue, validate, updateSchema }] = useForm({
     labelWidth: 90,
@@ -52,6 +69,10 @@
     if (unref(treeData).length === 0) {
       treeData.value = (await getActiveMenus()) as any as TreeItem[]
     }
+    if (unref(treeDataForPermissions).length === 0) {
+      treeDataForPermissions.value = (await getPermissionList()) as any as TreeItem[]
+    }
+
     isUpdate.value = !!data?.isUpdate
 
     if (unref(isUpdate)) {
@@ -66,9 +87,11 @@
       // NOTE: 编辑的时候,要回填菜单,根据用户的角色去获取角色对应的菜单
       const roleId = data.record.id
       const menus = (await getRoleMenusByRoleId(roleId)) || []
+      const permissions = (await getPermissionsByRoleId(roleId)) || []
       data.record.menu = menus.map((item) => {
         return item.menuId
       })
+      data.record.permission = permissions.map((item) => item.permissionId)
 
       setFieldsValue({
         ...data.record,

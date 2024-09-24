@@ -61,6 +61,12 @@ export const formSchema: FormSchema[] = [
     slot: 'menu',
     component: 'Input',
   },
+  {
+    label: ' ',
+    field: 'permission',
+    slot: 'permission',
+    component: 'Input',
+  },
 ]
 
 // refactor: formSchema 改造, 由数组改造成函数

@@ -12,6 +12,7 @@ enum Api {
   User = '/user',
   Role = '/role',
   RoleMenu = '/role/role_menu',
+  RolePermission = '/role/role_permission',
   Permission = '/permission',
 }
 
@@ -59,6 +60,11 @@ export const editPermission = (data = {}) => {
 export const deletePermission = (id) => {
   console.log('删除角色参数', id)
   return defHttp.delete({ url: `${Api.Permission}/${id}` }, { successMessageMode: 'message' })
+}
+
+export const getPermissionsByRoleId = (roleId) => {
+  console.log('根据角色ID 获取角色权限', roleId)
+  return defHttp.get({ url: Api.RolePermission, params: { roleId: roleId } })
 }
 
 /* -------------------------------------------------------------------------- */
