@@ -62,6 +62,20 @@
     showActionButtonGroup: false,
   })
 
+  const updateData = async (data) => {
+    updatedRecordId.value = data.record.id
+
+    // NOTE: 编辑的时候,要回填菜单,根据用户的角色去获取角色对应的菜单
+    const roleId = data.record.id
+    const menus = (await getRoleMenusByRoleId(roleId)) || []
+    const permissions = (await getPermissionsByRoleId(roleId)) || []
+    data.record.menu = menus.map((item) => {
+      return item.menuId
+    })
+    data.record.permission = permissions.map((item) => item.permissionId)
+    return data
+  }
+
   const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
     resetFields()
     setDrawerProps({ confirmLoading: false })
@@ -76,26 +90,14 @@
     isUpdate.value = !!data?.isUpdate
 
     if (unref(isUpdate)) {
-      updatedRecordId.value = data.record.id
-      //NOTE: 编辑时候设置表单字段禁用,禁止修改
       updateSchema({
         field: 'name',
         componentProps: {
           disabled: true,
         },
       })
-      // NOTE: 编辑的时候,要回填菜单,根据用户的角色去获取角色对应的菜单
-      const roleId = data.record.id
-      const menus = (await getRoleMenusByRoleId(roleId)) || []
-      const permissions = (await getPermissionsByRoleId(roleId)) || []
-      data.record.menu = menus.map((item) => {
-        return item.menuId
-      })
-      data.record.permission = permissions.map((item) => item.permissionId)
-
-      setFieldsValue({
-        ...data.record,
-      })
+      const res = await updateData(data)
+      setFieldsValue({ ...res.record })
     } else {
       updateSchema({
         field: 'name',

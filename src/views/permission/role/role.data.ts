@@ -56,13 +56,13 @@ export const formSchema: FormSchema[] = [
     component: 'InputTextArea',
   },
   {
-    label: ' ',
+    label: '', // label 不能 ' ', 否则控制台警告⚠️
     field: 'menu',
     slot: 'menu',
     component: 'Input',
   },
   {
-    label: ' ',
+    label: '', // label 不能 ' ', 否则控制台警告⚠️
     field: 'permission',
     slot: 'permission',
     component: 'Input',
