@@ -128,12 +128,12 @@ export const formSchema: FormSchema[] = [
     required: true,
     component: 'Input',
   },
-  {
-    field: 'avator',
-    label: '头像',
-    required: false,
-    component: 'Upload',
-  },
+  // {
+  //   field: 'avator',
+  //   label: '头像',
+  //   required: false,
+  //   component: 'Upload',
+  // },
   {
     field: 'roles',
     label: '角色',

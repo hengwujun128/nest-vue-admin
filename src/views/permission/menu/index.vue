@@ -16,7 +16,7 @@
                 icon: 'clarity:note-edit-line',
                 onClick: handleEdit.bind(null, record),
               },
-              /*
+
               {
                 icon: 'ant-design:delete-outlined',
                 color: 'error',
@@ -26,7 +26,6 @@
                   confirm: handleDelete.bind(null, record),
                 },
               },
-              */
             ]"
           />
         </template>
@@ -40,7 +39,7 @@
   import { defineComponent, nextTick } from 'vue'
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table'
-  import { getMenuList } from '/@/api/demo/system'
+  import { getMenuList, deleteMenu } from '@/api/sys/menu'
 
   import { useDrawer } from '/@/components/Drawer'
   import MenuDrawer from './MenuDrawer.vue'
@@ -94,6 +93,9 @@
 
       function handleDelete(record: Recordable) {
         console.log(record)
+        deleteMenu(record.id).then(() => {
+          reload()
+        })
       }
 
       function handleSuccess() {

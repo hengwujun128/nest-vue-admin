@@ -3,9 +3,8 @@ import { getMenuListResultModel, RouteItem } from './model/menuModel'
 
 enum Api {
   GetMenuList = '/getMenuList',
-  // GetAllMenus = '/menu',
   GetActiveMenus = '/menu/active',
-  CreateMenu = '/menu',
+  Menu = '/menu',
 }
 
 /**
@@ -13,7 +12,7 @@ enum Api {
  */
 
 export const getMenuList = () => {
-  return defHttp.get<getMenuListResultModel>({ url: Api.GetMenuList })
+  return defHttp.get<getMenuListResultModel>({ url: Api.Menu })
 }
 
 // 获取菜单接口
@@ -23,10 +22,15 @@ export const getActiveMenus = () => {
 
 // 新增菜单
 export const createMenu = (params: RouteItem) => {
-  return defHttp.post({ url: Api.CreateMenu, data: params }, { successMessageMode: 'message' })
+  return defHttp.post({ url: Api.Menu, data: params }, { successMessageMode: 'message' })
 }
 
 // 编辑菜单
 export const updateMenu = (params: RouteItem) => {
-  return defHttp.put({ url: Api.CreateMenu, data: params }, { successMessageMode: 'message' })
+  return defHttp.put({ url: Api.Menu, data: params }, { successMessageMode: 'message' })
+}
+
+// 删除菜单
+export const deleteMenu = (id) => {
+  return defHttp.delete({ url: `${Api.Menu}/${id}` }, { successMessageMode: 'message' })
 }

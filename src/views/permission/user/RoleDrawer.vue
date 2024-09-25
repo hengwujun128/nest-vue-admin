@@ -13,7 +13,7 @@
         <BasicTree
           v-model:value="model[field]"
           :treeData="treeData"
-          :fieldNames="{ title: 'remark', key: 'id' }"
+          :fieldNames="{ title: 'name', key: 'id' }"
           checkable
           toolbar
           title="角色列表"
@@ -79,6 +79,7 @@
       let updatedRoles = []
       if (data.record.roles) {
         const roles = JSON.parse(data.record.roles)
+        console.log('当前用户的角色---', roles)
         updatedRoles = roles.map((role) => {
           const roleItem = treeData.value.find((item) => item.name === role)
           return roleItem?.id
