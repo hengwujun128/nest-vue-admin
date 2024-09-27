@@ -1,13 +1,9 @@
 <template>
-  <!-- 页面主要是通过 table 和MenuDrawer 构成  -->
   <div>
-    <!-- BasicTable 自带搜索功能 -->
-    <BasicTable @register="registerTable" @fetch-success="onFetchSuccess">
-      <!--  -->
+    <BasicTable @register="registerTable">
       <template #toolbar>
         <a-button type="primary" @click="handleCreate"> 新增菜单 </a-button>
       </template>
-      <!--  -->
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
           <TableAction
@@ -31,7 +27,6 @@
         </template>
       </template>
     </BasicTable>
-    <!-- 封装新增 menu 组件 -->
     <MenuDrawer @register="registerDrawer" @success="handleSuccess" />
   </div>
 </template>

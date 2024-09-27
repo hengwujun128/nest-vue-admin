@@ -11,8 +11,10 @@ enum Api {
  * @description: Get user menu based on id
  */
 
-export const getMenuList = () => {
-  return defHttp.get<getMenuListResultModel>({ url: Api.Menu })
+export const getMenuList = (params = {}) => {
+  console.log('菜单列表查询参数', params)
+
+  return defHttp.get<getMenuListResultModel>({ url: Api.Menu, params })
 }
 
 // 获取菜单接口

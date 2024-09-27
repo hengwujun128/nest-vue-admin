@@ -30,10 +30,10 @@ export function initAppConfigStore() {
   const {
     colorWeak,
     grayMode,
-
     headerSetting: { bgColor: headerBgColor } = {},
     menuSetting: { bgColor } = {},
   } = projCfg
+
   try {
     grayMode && updateGrayMode(grayMode)
     colorWeak && updateColorWeak(colorWeak)
@@ -41,7 +41,6 @@ export function initAppConfigStore() {
     console.log(error)
   }
   appStore.setProjectConfig(projCfg)
-
   // init dark mode
   updateDarkTheme(darkMode)
   if (darkMode === ThemeEnum.DARK) {

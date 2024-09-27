@@ -26,7 +26,7 @@ async function bootstrap() {
   setupStore(app)
 
   // Initialize internal system configuration
-  // 初始化内部系统配置
+  // 初始化内部系统配置 - 如设置权限标准
   initAppConfigStore()
 
   // Register global components

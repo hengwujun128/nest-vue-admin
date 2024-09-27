@@ -26,8 +26,11 @@ export function setupRouterGuard(router: Router) {
   createScrollGuard(router)
   createMessageGuard(router)
   createProgressGuard(router)
+  // 权限守卫- 对 token 判断,判断是否有权限
   createPermissionGuard(router)
+  //
   createParamMenuGuard(router) // must after createPermissionGuard (menu has been built.)
+
   createStateGuard(router)
 }
 
@@ -69,7 +72,7 @@ function createPageLoadingGuard(router: Router) {
     }
     // 对 computed 进行 unref()
     if (unref(getOpenPageLoading)) {
-      appStore.setPageLoadingAction(true)
+      await appStore.setPageLoadingAction(true)
       return true
     }
 

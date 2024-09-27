@@ -130,9 +130,7 @@ export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
   watchEffect(() => {
     // dataTransferRef 是个对象
     const data = dataTransferRef[unref(uidRef)]
-    console.log({
-      dataTransferRef: data,
-    })
+
     if (!data) return
     if (!callbackFn || !isFunction(callbackFn)) return
     nextTick(() => {

@@ -97,6 +97,7 @@ export const useUserStore = defineStore({
 
         // 持久化 token
         this.setToken(token)
+
         return this.afterLoginAction(goHome)
       } catch (error) {
         return Promise.reject(error)

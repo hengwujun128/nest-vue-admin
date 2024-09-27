@@ -19,6 +19,8 @@ export function createPermissionGuard(router: Router) {
   const userStore = useUserStoreWithOut()
   const permissionStore = usePermissionStoreWithOut()
   router.beforeEach(async (to, from, next) => {
+    // NOTE:   权限守卫
+    // 第一步 如果是从跟路由(/)进入 /dashboard, 且用户信息中有首页配置; 首页配置不是/dashboard, 就跳到用户自定义的首页
     if (
       from.path === ROOT_PATH &&
       to.path === PageEnum.BASE_HOME &&
@@ -31,7 +33,7 @@ export function createPermissionGuard(router: Router) {
 
     const token = userStore.getToken
 
-    // Whitelist can be directly entered
+    // 第二步: whitelist can be directly entered
     if (whitePathList.includes(to.path as PageEnum)) {
       if (to.path === LOGIN_PATH && token) {
         const isSessionTimeout = userStore.getSessionTimeout
@@ -90,12 +92,14 @@ export function createPermissionGuard(router: Router) {
         return
       }
     }
-
+    /* -------------------------------------------------------------------------- */
+    /*                              // 判断是否已经加入到了动态路由                             */
+    /* -------------------------------------------------------------------------- */
     if (permissionStore.getIsDynamicAddedRoute) {
       next()
       return
     }
-
+    // 一般只有刷新的时候才走这一步(登录的时候也有), 因为登录的时候动态路由经过刷新后就失效了
     const routes = await permissionStore.buildRoutesAction()
 
     routes.forEach((route) => {
@@ -105,6 +109,8 @@ export function createPermissionGuard(router: Router) {
     router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw)
 
     permissionStore.setDynamicAddedRoute(true)
+
+    //
 
     if (to.name === PAGE_NOT_FOUND_ROUTE.name) {
       // 动态添加路由后，此处应当重定向到fullPath，否则会加载404页面内容

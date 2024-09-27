@@ -208,6 +208,7 @@ export const usePermissionStore = defineStore({
       }
       const getAllMenuData = () => {
         return getActiveMenus().then((data) => {
+          console.log('---原始 menu---', data)
           return menuListToMenuRoutes(data)
         })
       }
@@ -246,14 +247,13 @@ export const usePermissionStore = defineStore({
         routes.unshift(PAGE_NOT_FOUND_ROUTE)
         return routes
       }
-
       try {
-        // 对后端路由字符串进行处理
+        // 获取菜单并转化成前端路由
         const backendRouteData = await getAllMenuData()
         console.log('---backendRouteData---', backendRouteData)
-        // backendRouteList = JSON.parse(backendRouteData) //
         backendRouteList = backendRouteData
-        backendRouteList = wrapperRouteComponent(backendRouteList)
+        // backendRouteList = wrapperRouteComponent(backendRouteList)
+        // 解析
         backendRouteList = parseRouteRoles(backendRouteList)
         backendRouteList = addPageNotFoundAtFirst(backendRouteList)
         console.log('---finalbackendRouteData---', backendRouteList)
@@ -263,7 +263,6 @@ export const usePermissionStore = defineStore({
 
       //
       // backendRouteList = asyncRoutes
-
       /* ------------------------------ 后端下发 routes 改造 end ------------------------------ */
       // TIPS:
       switch (permissionMode) {
