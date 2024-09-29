@@ -42,7 +42,7 @@
   import { columns, searchFormSchema } from './role.data'
 
   export default defineComponent({
-    name: 'RoleManagement',
+    name: 'UserManagement',
     components: { BasicTable, RoleDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer()

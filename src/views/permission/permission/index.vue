@@ -37,9 +37,9 @@
   import { getPermissionList, deletePermission } from '/@/api/sys/user'
 
   import { useDrawer } from '/@/components/Drawer'
-  import RoleDrawer from './RoleDrawer.vue'
+  import RoleDrawer from './permissionDrawer.vue'
 
-  import { columns, searchFormSchema } from './role.data'
+  import { columns, searchFormSchema } from './permission.data'
 
   export default defineComponent({
     name: 'PermissionManagement',

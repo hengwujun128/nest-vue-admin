@@ -23,12 +23,14 @@
 </template>
 <script lang="ts" setup>
   import { ref, computed, unref } from 'vue'
+
   import { BasicForm, useForm } from '/@/components/Form/index'
-  import { formSchema } from './role.data'
+  import { formSchema } from './permission.data'
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer'
   import { BasicTree, TreeItem } from '/@/components/Tree'
 
-  import { getMenuList } from '/@/api/demo/system'
+  // import { getActiveMenus } from '/@/api/sys/menu'
+
   import { addPermission, editPermission } from '/@/api/sys/user'
 
   const emit = defineEmits(['success', 'register'])
@@ -47,14 +49,13 @@
     resetFields()
     setDrawerProps({ confirmLoading: false })
     // 需要在setFieldsValue之前先填充treeData，否则Tree组件可能会报key not exist警告
-    if (unref(treeData).length === 0) {
-      treeData.value = (await getMenuList()) as any as TreeItem[]
-    }
+    // if (unref(treeData).length === 0) {
+    //   treeData.value = (await getActiveMenus()) as any as TreeItem[]
+    // }
     isUpdate.value = !!data?.isUpdate
 
     if (unref(isUpdate)) {
       updatedRecordId.value = data.record.id
-      //NOTE: 编辑时候设置表单字段禁用,禁止修改
       updateSchema({
         field: 'key',
         componentProps: {
@@ -64,6 +65,13 @@
 
       setFieldsValue({
         ...data.record,
+      })
+    } else {
+      updateSchema({
+        field: 'key',
+        componentProps: {
+          disabled: false,
+        },
       })
     }
   })

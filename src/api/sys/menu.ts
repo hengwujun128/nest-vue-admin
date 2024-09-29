@@ -5,15 +5,18 @@ enum Api {
   GetMenuList = '/getMenuList',
   GetActiveMenus = '/menu/active',
   Menu = '/menu',
+  MenuAll = '/menu/all',
 }
 
 /**
  * @description: Get user menu based on id
  */
+export const getAllMenus = () => {
+  return defHttp.get({ url: Api.MenuAll })
+}
 
 export const getMenuList = (params = {}) => {
   console.log('菜单列表查询参数', params)
-
   return defHttp.get<MenuList>({ url: Api.Menu, params })
 }
 
