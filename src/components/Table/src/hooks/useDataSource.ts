@@ -254,6 +254,7 @@ export function useDataSource(
     return findRow(dataSourceRef.value)
   }
 
+  // table 表格请求
   async function fetch(opt?: FetchParams) {
     const {
       api,
@@ -268,6 +269,7 @@ export function useDataSource(
     if (!api || !isFunction(api)) return
     try {
       setLoading(true)
+
       const { pageField, sizeField, listField, totalField } = Object.assign(
         {},
         FETCH_SETTING,
@@ -303,9 +305,8 @@ export function useDataSource(
 
       const res = await api(params)
       rawDataSourceRef.value = res
-
+      // res 既可以是个对象，也可以是个数组
       const isArrayResult = Array.isArray(res)
-
       let resultItems: Recordable[] = isArrayResult ? res : get(res, listField)
       const resultTotal: number = isArrayResult ? res.length : get(res, totalField)
 

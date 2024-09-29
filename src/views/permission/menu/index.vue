@@ -31,7 +31,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, nextTick } from 'vue'
+  import { defineComponent, reactive, nextTick } from 'vue'
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table'
   import { getMenuList, deleteMenu } from '@/api/sys/menu'
@@ -47,6 +47,11 @@
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer()
 
+      const pagination = reactive({
+        pageSize: 10,
+        page: 1,
+        total: 0,
+      })
       // hooks
       const [registerTable, { reload, expandAll }] = useTable({
         title: '菜单列表',
@@ -57,7 +62,7 @@
           schemas: searchFormSchema,
         },
         isTreeTable: true,
-        pagination: false,
+        pagination: pagination,
         striped: false,
         useSearchForm: true,
         showTableSetting: true,
@@ -72,6 +77,9 @@
           fixed: undefined,
         },
       })
+
+      // 设置分页
+      // setPagination(pagination)
 
       function handleCreate() {
         openDrawer(true, {

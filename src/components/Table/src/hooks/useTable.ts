@@ -28,6 +28,8 @@ export function useTable(tableProps?: Props): [
   let stopWatch: WatchStopHandle
 
   function register(instance: TableActionType, formInstance: UseTableMethod) {
+    // eslint-disable-next-line no-debugger
+    debugger
     isProdMode() &&
       onUnmounted(() => {
         tableRef.value = null

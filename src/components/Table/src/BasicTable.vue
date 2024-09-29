@@ -10,6 +10,7 @@
       @submit="handleSearchInfoChange"
       @advanced-change="redoHeight"
     >
+      <!-- slots 遵循里氏替换设计原则 -->
       <template #[replaceFormSlotKey(item)]="data" v-for="item in getFormSlotKeys">
         <slot :name="item" v-bind="data || {}"></slot>
       </template>

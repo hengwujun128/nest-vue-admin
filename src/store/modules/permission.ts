@@ -112,7 +112,7 @@ export const usePermissionStore = defineStore({
       this.setPermCodeList(codeList)
     },
 
-    // 构建路由-基于角色构建前端路由（动态路由）
+    // 构建路由-基于角色构建前端路由（动态路由）-场景: 登录之后, 刷新页面, 重置
     async buildRoutesAction(): Promise<AppRouteRecordRaw[]> {
       const { t } = useI18n()
       const userStore = useUserStore()
@@ -129,7 +129,7 @@ export const usePermissionStore = defineStore({
         // 抽出角色
         const { roles } = meta || {}
         if (!roles) return true
-        // 进行角色权限判断
+        // 进行角色权限判断(判断当前用户角色是否存在路由角色列表中)
         return roleList.some((role) => roles.includes(role))
       }
 
@@ -279,7 +279,7 @@ export const usePermissionStore = defineStore({
 
         // 路由映射， 默认进入该case
         case PermissionModeEnum.ROUTE_MAPPING:
-          // 对非一级路由进行过滤
+          // 对非一级路由进行过滤(根据用户信息角色,过滤出菜单上的路由)
           routes = filter(backendRouteList, routeFilter)
           // 对一级路由再次根据角色权限过滤
           routes = routes.filter(routeFilter)
