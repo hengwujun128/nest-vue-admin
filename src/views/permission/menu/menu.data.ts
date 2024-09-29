@@ -9,16 +9,19 @@ export const columns: BasicColumn[] = [
     title: '菜单ID',
     dataIndex: 'id',
     width: 100,
+    fixed: 'left',
   },
   {
     title: '菜单路径',
     dataIndex: 'path',
     width: 180,
+    fixed: 'left',
   },
   {
     title: '菜单名称',
     dataIndex: 'name',
     width: 200,
+    fixed: 'left',
     align: 'left',
   },
   // {
@@ -37,7 +40,9 @@ export const columns: BasicColumn[] = [
   {
     title: '元数据',
     dataIndex: 'meta',
-    // width: 100,
+    width: '100%',
+    ellipsis: true,
+    align: 'left',
     customRender({ text }) {
       return h(
         Tooltip,

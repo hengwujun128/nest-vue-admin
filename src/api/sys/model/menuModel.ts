@@ -11,6 +11,14 @@ export interface RouteItem {
   children?: RouteItem[]
 }
 
+export type MenuList = {
+  list: RouteItem[]
+  page: number
+  pageSize: number
+  pages?: number
+  total: number
+}
+
 /**
  * @description: Get menu return value
  */

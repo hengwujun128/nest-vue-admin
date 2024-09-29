@@ -50,7 +50,11 @@
           })
         }
         // drawer 请求 API, 设置下拉
-        const treeData = await getMenuList()
+        const params = {
+          page: 1,
+          pageSize: 1000,
+        }
+        const { list: treeData } = await getMenuList(params)
         menuList = treeData
         updateSchema({
           field: 'parentMenu',

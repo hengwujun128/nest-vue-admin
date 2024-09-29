@@ -1,5 +1,5 @@
 import { defHttp } from '/@/utils/http/axios'
-import { getMenuListResultModel, RouteItem } from './model/menuModel'
+import { getMenuListResultModel, RouteItem, MenuList } from './model/menuModel'
 
 enum Api {
   GetMenuList = '/getMenuList',
@@ -14,7 +14,7 @@ enum Api {
 export const getMenuList = (params = {}) => {
   console.log('菜单列表查询参数', params)
 
-  return defHttp.get<getMenuListResultModel>({ url: Api.Menu, params })
+  return defHttp.get<MenuList>({ url: Api.Menu, params })
 }
 
 // 获取菜单接口
