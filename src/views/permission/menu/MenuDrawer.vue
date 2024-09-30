@@ -54,7 +54,11 @@
           page: 1,
           pageSize: 1000,
         }
-        const { list: treeData } = await getMenuList(params)
+        const { list } = await getMenuList(params)
+        const treeData = listToTree(list, true)
+        console.log('---treeData---', treeData)
+        // 树形结构处理,变成 treeData
+
         menuList = treeData
         updateSchema({
           field: 'parentMenu',
@@ -64,6 +68,34 @@
 
       const getTitle = computed(() => (!unref(isUpdate) ? '新增菜单' : '编辑菜单'))
 
+      //
+      function listToTree(list, onlyRoot = false) {
+        const treeData: any[] = []
+        list.forEach((item) => {
+          if (item.pid === 0) {
+            treeData.push(item)
+          } else {
+            const parentItem = list.find((parent) => parent.id === item.pid)
+            if (parentItem) {
+              if (!parentItem.children) {
+                parentItem.children = []
+              }
+              parentItem.children.push(item)
+            }
+          }
+        })
+        if (onlyRoot) {
+          return [
+            {
+              id: 0,
+              name: 'root',
+              label: '根目录',
+              children: treeData,
+            },
+          ]
+        }
+        return treeData
+      }
       // 判断所有子菜单全部关闭后,主菜单才能关闭(禁用)
       function checkAllChildrenMenuDisabled(updateMenu) {
         const id = updateMenu.id

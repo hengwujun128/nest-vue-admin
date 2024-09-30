@@ -88,7 +88,7 @@ const isButton = (type: string) => type === '2'
 // form 通过配置的形式
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'menuName',
+    field: 'name',
     label: '菜单名称',
     component: 'Input',
     colProps: { span: 8 },
@@ -136,6 +136,12 @@ export const formSchema: FormSchema[] = [
     required: true,
   },
   {
+    field: 'label',
+    label: 'Label',
+    component: 'Input',
+    required: true,
+  },
+  {
     field: 'redirect',
     label: '重定向地址',
     component: 'Input',
@@ -147,14 +153,15 @@ export const formSchema: FormSchema[] = [
     component: 'Input',
     required: false,
   },
-  //
+  // TODO: 改成 层级形式, 如何实现自带搜索功能
   {
     field: 'parentMenu',
     label: '上级菜单',
     component: 'TreeSelect',
+
     componentProps: {
       fieldNames: {
-        label: 'name',
+        label: 'label',
         key: 'id',
         value: 'id',
       },
